@@ -1,4 +1,104 @@
-" just trying to see if this works lol"
+class player:
+    """ Summary: Showing the player’s information, the players’s characstic and their uniquely spells 
+    
+        Attributes:
+            player_health (int): player's amount of health 
+            Player_ ability (str) : palyer's ability information 
+    """
+        def file_read(filepath):
+            """ Summary: read the text file to store player's information and pass around classes. Using 
+            regular expression to pick up player's information
+
+            Args:
+                filepath (str): path to a text file containing player's information
+            
+            Side effects: 
+                Store player's ability and health into two variables for running the game
+            """
+class Monster:
+    """ Summary: Displaying monster's information in health amount and attack ability
+    
+        Attributes:
+            monster_health (int): monster's amount of health 
+            monster_ability (str): monster's ability information 
+            
+    """
+        def monster_attack(monster,current_health):
+            """Perform the monster actions after the player’s move, how monster gives attack after
+            players attack to monster. When monster's health reach to 0, the monster die.
+
+            Args:
+                monster (str): the name of the monster
+                current_health (int): current health amount after attacked by players
+            
+            Side effects:
+                The changed amount of health amount of the monster, and the attack caused by the monster 
+                according to its ability
+                
+            Return （int）: 
+                The amount of attack by the monster 
+            
+            Raises: 
+                Give the player a description of how much damage the monster does to them, and what kind of 
+                ability the monster used
+             
+            """
+class Witch(Monster):
+    """ Summary: Subclass of Monster, displaying withch's information as one kind of monster in health amount and ability
+
+    Args:
+        Monster (str): a type of monster that can attack to players when they choose a bad path in D&D game
+    
+    """
+    def monster_attack(witch_name,current_helath):
+            """Perform the monster actions after the player’s move, how monster gives attack after
+            players attack to monster. Witch will die when its health amount reaches to 0
+
+            Args:
+                monster (str): the name of the witch
+                current_health (int): current health amount after attacked by players
+            
+            Side effects:
+                The changed amount of health amount of the witch, and the attack caused by the witch 
+                according to its ability
+                
+            Return （int）: 
+                The amount of attack by the witch
+            
+            Raises: 
+                Give the player a description of how much damage the witch does to them
+             
+            """
+    
+class Dragon(Monster):
+    """Summary: Subclass of Monster, displaying dragon's information as one kind of monster 
+    in health amount and ability. Dragon will die when its health amount reaches to 0
+
+    Args:
+        Monster (str): a type of monster that can attack to players when players choose path in D&D game
+        and need to have a battle with the dragon
+    """
+    def monster_attack(dragon_name,current_health):
+            """Perform the dragon actions after the player’s move, how dragon gives attack after
+            players attack to dragon
+
+            Args:
+                monster (str): the name of the dragon
+                current_health (int): current health amount after attacked by players
+            
+            Side effects:
+                The changed amount of health amount of the dragon, and the attack caused by the dragon 
+                according to its ability
+                
+            Return （int）: 
+                The amount of attack by the dragon to players
+            
+            Raises: 
+                Give the player a description of how much damage the dragon does to them
+             
+            """
+# " just trying to see if this works lol"
+
 class items_or_weapons:
 	"""Summary: Players are allowed one of 4 weapons when starting the game in order to be able to do damage. 
     The weapons are represented below as one of 4 methods. Also includes a damage method which calls one of the
