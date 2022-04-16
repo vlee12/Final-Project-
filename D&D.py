@@ -1,3 +1,5 @@
+import sys
+
 class player:
     """ Summary: Showing the player’s information, the players’s characstic and their uniquely spells 
     
@@ -203,3 +205,25 @@ class Plot:
         
         Side effect:
         prints the ending destination for the current player"""
+     
+def main(filepath):
+    """Open and read the file.
+    
+    Args:
+    filepath(file): filepath to the text file which includes the player's character of choice.
+    
+    Side effect:
+    reads the text file """
+    
+def parse_args(arglist):
+    """Process command line arguments.
+    
+    Args:
+    arglist(list of str): arguments from the command line
+    
+    Returns:
+    namespace: the parsed arguments, as a namespace."""   
+        
+if __name__ == "__main__":
+    args = parse_args(sys.argv[1:])
+    main(args.filepath)
