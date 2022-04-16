@@ -6,7 +6,7 @@ class player:
             Player_ ability (str) : palyer's ability information 
     """
         def file_read(filepath):
-            """ Summary: read the text file to store player's information and pass around classes. Using 
+            """ Summary: read the text file in encoding UTF-8 to store player's information (ex. strength(int), defense(int)) and pass around classes. Using 
             regular expression to pick up player's information
 
             Args:
@@ -159,3 +159,47 @@ class spells_and_curses:
         Args(Player): 
             player- the player who owns the spell. 
         Returns(int): The amount of damage done. Calculated by adding player statistics plus base damage."""
+
+class Plot:
+    """Keep track of the player's choice and location of the player on the plot/map.
+    
+    Attributes:
+    player (str): players that are playing 
+    """
+    def first_choice(highest_roll):
+        """ Asks the player with the highest dice roll value which path they want to choose.
+        
+        Args:
+        player(str): player with highest dice roll
+        
+        Returns:
+        str: player's decision
+        
+        Side effect:
+        prints the next location and what is present at that location (monster, weapon, etc)"""
+        
+    def second_choice(highest_roll, previous_location):
+        """ Asks the players which path they want to choose.
+        
+        Args:
+        player(str): player with highest dice roll
+        previous location(str): location of the previous round
+        
+        Returns:
+        str: player's decision
+        
+        Side effect:
+        prints the next location and what is present at that location (monster, weapon, etc)"""
+        
+    def third_choice(highest_roll, previous_location):
+        """Asks the player their third and final choice.
+        
+        Args:
+        player(str): player with highest dice roll
+        previous location(str): location of the previous round
+        
+        Returns:
+        str: player's decision
+        
+        Side effect:
+        prints the ending destination for the current player"""
