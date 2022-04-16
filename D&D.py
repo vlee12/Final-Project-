@@ -1,5 +1,19 @@
 import sys
 
+"""Information need: 
+Our program will be a choose your own adventure game based on D&D. 
+In order for the program to function, the players will initially have to create a character which they will use to play throughout the game. 
+This means that the code will need a filepath to a character sheet file or a string input from the player saying that they want to use the default player statistics. 
+The character statistics will be stored in a list in the player class, with numerical limitations running from 1-10. 
+The players will also have to input their decisions throughout the game and choose a weapon. 
+The weapon class needs the str information from which weapon a player will choose. 
+The spells and curses class has a very similar information need to the weapon class, but instead players will be choosing which spells they want to use, or if they want to use spells at all. 
+The plot class needs a str of what decision will make for each method. 
+The start function’s information need is based on the questions the players answer in the very beginning of the game. 
+All of this information will be provided to the code through parameters."""
+
+
+
 class player:
     """ Summary: Showing the player’s information, the players’s characstic and their uniquely spells 
     
@@ -205,7 +219,31 @@ class Plot:
         
         Side effect:
         prints the ending destination for the current player"""
-     
+
+def start(player):
+    """ Players have the opportunity to choose information, roll a dice and 
+    based on the roll they get to choose what weapon they want
+    
+    Args:
+    player(str): amount of players being chosen/dice roll
+    
+    Returns: 
+    Returns the highest dice for a player
+    
+    Side Effects:
+    Prints how many pkayers that are wanted to play in that round
+    
+    """
+def end(player):
+    """ outputs the ending player statistics and whether or not they made good 
+        decisions throughout the game
+    Args:
+    player(str): amount of players being chosen/dice roll
+    
+    Returns:
+     the ending player statistics
+   """
+   
 def main(filepath):
     """Open and read the file.
     
