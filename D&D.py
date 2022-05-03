@@ -134,9 +134,9 @@ class items_or_weapons():
 	Attributes: 
         base_damage(int): Baseline amount of damage """
     def __init__(self, name = None, base_damage = 25, range = 10):
-        self.base_damage = self.base_damage
-        self.range = self.range
-        self.name = self.name 
+        self.base_damage = base_damage
+        self.range = range
+        self.name = name 
     def equip(self):
         print (f"{self.player} has recieved a {self.name}")
     def ability(self):
@@ -151,37 +151,42 @@ class sword(items_or_weapons):
 	Args (player obj): player which receives the sword
 	Side effects: prints out a sword-specific statement when the player uses it. 
 	Returns(int): the amount of damage which this weapon is able to do."""
-    def __init__(self, super):    
-        self.base_damage = super.base_damage + 25
+    def __init__(self):    
+        super().__init__()
+        if player.player_strength > 10:
+            self.base_damage = super.base_damage + 10
         self.name = "sword"
-        self.range= super.range
 class bow(items_or_weapons):
 	"""Summary: Simulates archery equipment in game which players can use against monsters.
 	Args (player obj): player which receives the bow
 	Side effects: prints out an archery-specific statement when the player uses it. 
     Returns(int): the amount of damage which this weapon is able to do."""
-    def __init__(super, self):    
-        self.base_damage = super.base_damage + 15
+    def __init__(self):    
+        super().__init__()
+        if player.player_wisdom > 9:
+            self.base_damage = super.base_damage + 5
+            self.range = super.range + 15
         self.name = "bow"
-        self.range = super.range + 15 
 class dagger(items_or_weapons):
 	"""Summary: Simulates a dagger in game which players can use against monsters. 
 	Args (player obj): player which receives the dagger
 	Side effects: prints out a dagger-specific statement when the player uses it. 
 	Returns(int): the amount of damage which this weapon is able to do."""
-    def __init__(super, self):
-        self.base_damage = super.base_damage + 10
+    def __init__(self):
+        super().__init__()
+        if player.player_dexterity > 11:
+            self.base_damage += 10
         self.name = "dagger"
-        self.range = super.range - 5
 class staff(items_or_weapons): 
 	"""Summary: Simulates a staff in game
 	Args (player obj): player which receives the staff
 	Side effects: prints out a staff-specific statement when the player uses it. 
 	Returns(int): the amount of damage which this weapon is able to do."""
-    def __init__(self, super):
-        self.base_damage = super.base_damage + 5
+    def __init__(self):
+        super().__init__()
+        if player.player_wisdom > 8:
+            self.base_damage += 5
         self.name = "staff"
-        self.range= super.range
 class spells_and_curses:
 	"""Summary: Simulates different types of spells/curses that the player can use. There are a variety of spells which could be used.  
 	Attributes: 
@@ -204,8 +209,8 @@ class potion(spells_and_curses):
         player(player object): The player which owns the potion.
     Returns
     spell_damage(int): the amount of damage that the item is able to do.""" 
-    def __init__(self, super):
-        self.spell_stats = super.spell_stats + 5
+    def __init__(self):
+        super().__init__()
         self.name = "potion"
 class healing_spell(spells_and_curses): 
         """Summary: A healing spell which allows you to heal one of your teammates.
@@ -213,8 +218,8 @@ class healing_spell(spells_and_curses):
 	        Player(player object): player that owns the spell
 	        target_player(player_object): player which is going to get healed. 
             Returns(int): the amount that you would heal another player"""
-    def __init__(self, super):
-        self.spell_stats = super.spell_stats  
+    def __init__(self):
+        super().__init__(self)  
         self.name = "Healing spell"
     def heal(self, player):
         player.health = self.spell_stats + player.health
@@ -225,8 +230,8 @@ class poison_spell(spells_and_curses):
         player(player obj) -The player that owns the spell.
         Returns(int): The amount of damage done. Calculated by adding the player statistics plus base damage of spell."""
     def __init__(self):
-        self.spell_stats= super.spells_stats 
-        self.name = "Posion spell"
+        super().__init__() 
+        self.name = "posion spell"
     def wait_damage(self, monster):
         print ("This spell does damager over time")
         conditional = self.spell_stats
@@ -242,8 +247,8 @@ class fire_spell(spells_and_curses):
             player- the player who owns the spell. 
         Returns(int): The amount of damage done. Calculated by adding player statistics plus base damage."""
     def __init__(self):
-        self.spell_stats= super.spells_stats 
-        self.name = "Fire Spell"
+        super().__init__() 
+        self.name = "fire spell"
 def damage(player_lst, monster):
     """Summary: Using the players' weapon (damage stats) to hurt the monster until the monster's health is empty or the players are dead
     Args(int, int): player_weapon is an integer value which represents the amount of damage a player can do. monster_health- an integer 
