@@ -21,7 +21,9 @@ class Player:
     Attributes:
         player (str): name of the player
         player_health (int): player's amount of health 
-        player_ability (str) : palyer's ability information 
+        player_strength (int): player strgenth 
+        player_dex_dexterity (int): player dex 
+        
     """
     def __init__(self,player,player_health = 10,player_strength = 25, player_dex_dexterity = 8,\
                 player_constituiton =10 , player_intelligence = 16, player_wisdom = 10, \
@@ -62,16 +64,16 @@ class Player:
      
         
     def file_read(filepath):
-            """ Summary: read the text file in encoding UTF-8 to store player's information (ex. strength(int), defense(int)) and pass around classes. Using 
-            regular expression to pick up player's information
+        """ Summary: read the text file in encoding UTF-8 to store player's information (ex. strength(int), defense(int)) and pass around classes. Using 
+        regular expression to pick up player's information
 
-            Args:
-                filepath (str): path to a text file containing player's information
+        Args:
+            filepath (str): path to a text file containing player's information
+        
+        Side effects: 
+            Store player's ability and health into two variables for running the game
             
-            Side effects: 
-                Store player's ability and health into two variables for running the game
-                
-            """
+        """
         
         with open (filepath,"r",encoding="utf-8") as f:
             expr = r ''' regex '''
@@ -168,7 +170,7 @@ class Witch(Monster):
             
         """
         player_obj -= self.witch_att_damaged
-        return player_obj
+        # return player_obj
     
 class Dragon(Monster):
     """Summary: Subclass of Monster, displaying dragon's information as one kind of monster 
@@ -202,7 +204,7 @@ class Dragon(Monster):
              
             """
         player_obj -= self.dragon_att_damaged
-        return player_obj
+        # return player_obj
         
 
 class items_or_weapons:
