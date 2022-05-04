@@ -1,6 +1,7 @@
+from argparse import ArgumentParser
 import sys
-import random 
-import time
+import re
+
 """Information need: 
 Our program will be a choose your own adventure game based on D&D. 
 In order for the program to function, the players will initially have to create a character which they will use to play throughout the game. 
@@ -19,9 +20,48 @@ class player:
     """ Summary: Showing the player’s information, the players’s characstic and their uniquely spells 
     
         Attributes:
+            player (str): name of the player
             player_health (int): player's amount of health 
-            Player_ ability (str) : palyer's ability information 
+            player_ability (str) : palyer's ability information 
     """
+    def __init__(self,player,player_health = None,player_strength = 25, player_dex_dexterity = 8,\
+                player_constituiton =10 , player_intelligence = 16, player_wisdom = 10, \
+                player_charisma = 10):
+    
+        self.player = player
+        self.player_health = player_health
+        self.player_strength = player_strength
+        self.player_dex_dexterity = player_dex_dexterity
+        self.player_intelligence = player_intelligence
+        self.player_wisdom = player_wisdom
+        self.player_charisma = player_charisma
+        
+        print("For the game, do you want to input the plyaer's information or upload a file to read?")
+        choice = input("If you want to make an input, enter 1.\n"
+                        "If you want to upload a file, enter 2")
+        
+        self.player = []
+        if choice == "1":
+            number_of_players = input("The minimum player require for the game is 1 player,\n"\
+                                        "the upper limit is 4 players.\n"\
+                                        "How many players you want to have for the game?\n")
+            number_of_players = int(number_of_players)
+            
+            while number_of_players not in range (1,5):
+                    number_of_players = input("The minimum player require for the game is 1 player,\n"\
+                                        "the upper limit is 4 players.\n"\
+                                        "How many players you want to have for the game?\n")
+            for player in range(number_of_players):
+                name = input("Please enter your player name")
+                self.player.append(name)
+                        
+        elif choice == "2":
+            
+            filepath = input("Please enter your file name")
+            file_read(filepath)
+            
+     
+        
     def file_read(filepath):
             """ Summary: read the text file in encoding UTF-8 to store player's information (ex. strength(int), defense(int)) and pass around classes. Using 
             regular expression to pick up player's information
@@ -31,35 +71,68 @@ class player:
             
             Side effects: 
                 Store player's ability and health into two variables for running the game
+                
             """
+        
+        with open (filepath,"r",encoding="utf-8") as f:
+            expr = r ''' regex '''
+        
+            if re.search(expr,player):
+                match = re.search(expr,player)
+            
+                # match function may need to update to correct one
+                self.player_health = match.player_health
+                self.player_strength = match.player_strength
+                self.player_dex_dexterity = match.player_dex_dexterity
+                self.player_intelligence = match.player_intelligence
+                self.player_wisdom = match.player_wisdom
+                self.player_charisma = match.player_charisma
+                self.player.append(name)
+            else:
+                raise ValueError("Invalid input!")
+            
+            
+            
+            
 class Monster:
     """ Summary: Displaying monster's information in health amount and attack ability
     
         Attributes:
             monster_health (int): monster's amount of health 
             monster_ability (str): monster's ability information 
+            monster_att_damage (int): monster's attrack damage per action
             
     """
-    def monster_attack(monster,current_health):
+    def __init__(self,monster_health = 150, monster_att_damage = 15):
+        self.monster_health = monster_health
+        self.monster_att_damage = monster_att_damage
+        
+    def monster_attack(self,player,current_health): #has the attribute of the health
             """Perform the monster actions after the player’s move, how monster gives attack after
-            players attack to monster. When monster's health reach to 0, the monster die.
+            players attack to monster. When playe's health reach to 0, the player die.
 
             Args:
-                monster (str): the name of the monster
-                current_health (int): current health amount after attacked by players
+                current_health (int): player's current health amount after attacked by players
             
             Side effects:
-                The changed amount of health amount of the monster, and the attack caused by the monster 
-                according to its ability
+                The changed amount of health amount of the player.
                 
             Return （int）: 
-                The amount of attack by the monster 
+                The player's remaining health amount by monster's damage attack 
             
             Raises: 
                 Give the player a description of how much damage the monster does to them, and what kind of 
                 ability the monster used
              
             """
+        player.player_health -= self.monster_att_damage
+        print("Your helath decreased for .")
+        if plyaer.player_health <= 0:
+            print(f"{player} died.")
+            
+        return player.player_health
+        
+        
 class Witch(Monster):
     """ Summary: Subclass of Monster, displaying withch's information as one kind of monster in health amount and ability
 
@@ -67,13 +140,18 @@ class Witch(Monster):
         Monster (str): a type of monster that can attack to players when they choose a bad path in D&D game
     
     """
-    def monster_attack(witch_name,current_helath):
+    def __init__(self,player, witch_health = 130,witch_att_damage = 17):
+        self.witch_health = witch_health
+        self.witch_att_damage = witch_att_damaged
+   
+    def monster_attack(witch_name,player, current_helath):
             """Perform the monster actions after the player’s move, how monster gives attack after
             players attack to monster. Witch will die when its health amount reaches to 0
 
             Args:
                 monster (str): the name of the witch
-                current_health (int): current health amount after attacked by players
+                player: the name of player
+                current_health (int): player's current health amount after attacked by the monster
             
             Side effects:
                 The changed amount of health amount of the witch, and the attack caused by the witch 
@@ -86,6 +164,9 @@ class Witch(Monster):
                 Give the player a description of how much damage the witch does to them
              
             """
+        Player.player_health -= self.witch_att_damaged
+        
+        return self.player_health
     
 class Dragon(Monster):
     """Summary: Subclass of Monster, displaying dragon's information as one kind of monster 
@@ -95,7 +176,11 @@ class Dragon(Monster):
         Monster (str): a type of monster that can attack to players when players choose path in D&D game
         and need to have a battle with the dragon
     """
-    def monster_attack(dragon_name,current_health):
+    def __init__(self,drgaon_health = 140,dragon_att_damage = 20):
+        self.drgaon_health = drgaon_health
+        self.dragon_att_damage = dragon_att_damage
+        
+    def monster_attack(self,player,current_health):
             """Perform the dragon actions after the player’s move, how dragon gives attack after
             players attack to dragon
 
@@ -114,18 +199,11 @@ class Dragon(Monster):
                 Give the player a description of how much damage the dragon does to them
              
             """
-# " just trying to see if this works lol"
-def dice_roll(player_lst):
-    min = 1
-    max = 20
-    player_roll = {}
-    for player in player_lst:
-        roll= random.randint(min, max)
-        player_roll[player] = roll
-        print(f"{player} has rolled a {roll}")
-    sorted_dict = sorted(player_roll.items(), key = lambda num: num[1], reverse=True)
-    return sorted_dict
-class items_or_weapons():
+        Player.player_health -= self.dragon_att_damaged
+        return self.player_health
+        
+
+class items_or_weapons:
 	"""Summary: Players are allowed one of 4 weapons when starting the game in order to be able to do damage. 
     The weapons are represented below as one of 4 methods. Also includes a damage method which calls one of the
     weapons when the player is fighting and calculates the amount of damage done to a monster based on the player’s health.
