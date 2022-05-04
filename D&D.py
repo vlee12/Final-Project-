@@ -22,7 +22,7 @@ class player:
             player_health (int): player's amount of health 
             Player_ ability (str) : palyer's ability information 
     """
-        def file_read(filepath):
+    def file_read(filepath):
             """ Summary: read the text file in encoding UTF-8 to store player's information (ex. strength(int), defense(int)) and pass around classes. Using 
             regular expression to pick up player's information
 
@@ -40,7 +40,7 @@ class Monster:
             monster_ability (str): monster's ability information 
             
     """
-        def monster_attack(monster,current_health):
+    def monster_attack(monster,current_health):
             """Perform the monster actions after the player’s move, how monster gives attack after
             players attack to monster. When monster's health reach to 0, the monster die.
 
