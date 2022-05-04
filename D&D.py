@@ -1,12 +1,7 @@
 from argparse import ArgumentParser
 import sys
-<<<<<<< HEAD
 import re
 
-=======
-import random 
-import time
->>>>>>> c1bcbd249c38f2c5fea5052f94e94dce5ed4df61
 """Information need: 
 Our program will be a choose your own adventure game based on D&D. 
 In order for the program to function, the players will initially have to create a character which they will use to play throughout the game. 
@@ -29,7 +24,6 @@ class player:
             player_health (int): player's amount of health 
             player_ability (str) : palyer's ability information 
     """
-<<<<<<< HEAD
     def __init__(self,player,player_health = None,player_strength = 25, player_dex_dexterity = 8,\
                 player_constituiton =10 , player_intelligence = 16, player_wisdom = 10, \
                 player_charisma = 10):
@@ -66,12 +60,8 @@ class player:
             filepath = input("Please enter your file name")
             file_read(filepath)
             
-            #regex spell needed
+     
         
-            
-        
-=======
->>>>>>> c1bcbd249c38f2c5fea5052f94e94dce5ed4df61
     def file_read(filepath):
             """ Summary: read the text file in encoding UTF-8 to store player's information (ex. strength(int), defense(int)) and pass around classes. Using 
             regular expression to pick up player's information
@@ -113,15 +103,11 @@ class Monster:
             monster_att_damage (int): monster's attrack damage per action
             
     """
-<<<<<<< HEAD
     def __init__(self,monster_health = 150, monster_att_damage = 15):
         self.monster_health = monster_health
         self.monster_att_damage = monster_att_damage
         
     def monster_attack(self,player,current_health): #has the attribute of the health
-=======
-    def monster_attack(monster,current_health):
->>>>>>> c1bcbd249c38f2c5fea5052f94e94dce5ed4df61
             """Perform the monster actions after the player’s move, how monster gives attack after
             players attack to monster. When playe's health reach to 0, the player die.
 
@@ -213,26 +199,11 @@ class Dragon(Monster):
                 Give the player a description of how much damage the dragon does to them
              
             """
-<<<<<<< HEAD
         Player.player_health -= self.dragon_att_damaged
         return self.player_health
         
 
 class items_or_weapons:
-=======
-# " just trying to see if this works lol"
-def dice_roll(player_lst):
-    min = 1
-    max = 20
-    player_roll = {}
-    for player in player_lst:
-        roll= random.randint(min, max)
-        player_roll[player] = roll
-        print(f"{player} has rolled a {roll}")
-    sorted_dict = sorted(player_roll.items(), key = lambda num: num[1], reverse=True)
-    return sorted_dict
-class items_or_weapons():
->>>>>>> c1bcbd249c38f2c5fea5052f94e94dce5ed4df61
 	"""Summary: Players are allowed one of 4 weapons when starting the game in order to be able to do damage. 
     The weapons are represented below as one of 4 methods. Also includes a damage method which calls one of the
     weapons when the player is fighting and calculates the amount of damage done to a monster based on the player’s health.
