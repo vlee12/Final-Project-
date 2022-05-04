@@ -288,11 +288,8 @@ class Plot:
     Attributes:
     player (str): players that are playing 
     """
-    def first_choice(highest_roll):
+    def first_choice(player_lst):
         """ Asks the player with the highest dice roll value which path they want to choose.
-        
-        Args:
-        player(str): player with highest dice roll
         
         Returns:
         str: player's decision
@@ -300,12 +297,26 @@ class Plot:
         Side effect:
         prints the next location and what is present at that location (monster, weapon, etc)"""
         
-    def second_choice(highest_roll, previous_location):
+        highest_roll = dice_roll(player_lst)
+        print(f'{highest_roll[0]} you rolled the highest, you get to choose the path.')
+        decision = input('What path do you want to choose? Forest, Country, City')
+        if decision == 'Forest':
+            first_location = 'forest'
+            print('Your first location is a Dragon Encounter.')
+        elif decision == 'Country':
+            first_location = 'country'
+            print('Your first location is water encounter.')
+        elif decision == 'City':
+            first_location = 'city'
+            print('Your first location is an item encounter.') 
+        else:
+            raise ValueError('Invalid input')
+        return first_location      
+    def second_choice(player_lst, first_location, weapon_dict):
         """ Asks the players which path they want to choose.
         
         Args:
-        player(str): player with highest dice roll
-        previous location(str): location of the previous round
+        first_location(str): location of the previous round
         
         Returns:
         str: player's decision
@@ -313,7 +324,44 @@ class Plot:
         Side effect:
         prints the next location and what is present at that location (monster, weapon, etc)"""
         
-    def third_choice(highest_roll, previous_location):
+        highest_roll = dice_roll(player_lst)
+        print(f'{highest_roll[0]} you rolled the highest, you get to choose the path.')
+        if first_location == 'forest':
+            second_decision = input('Would you like to fight or flee the Dragon?')
+            if second_decision == 'fight':
+                damage(Dragon)
+                seocnd_location = 'lost'
+                print('Your next location is the middle of nowhere.')
+            elif second_decision == 'flee':
+                second_location = 'NPC'
+                print('Your next location is a NPC encounter.')
+            else:
+                raise ValueError('Invalid input')
+        if first_location == 'country':
+            second_decision = input('Would you like to sail or stay on land?')
+            if second_decision == 'sail':
+                second_location = 'lost'
+                print('You have landed in the middle of nowhere.')
+            elif second_decision == 'stay':
+                second_location = 'witch'
+                print('Your next location is a witch encounter.')
+            else:
+                raise ValueError('Invalid input')
+        if first_location == 'city':
+            second_decision = input('Would you like to take the item or pass?')
+            if second_decision == 'take the item':
+                item = input('Please choose an item: sword, bow, dagger, staff')
+                weapon_dict[player] = item
+                second_location = 'NPC'
+                print('Your next location is a NPC encounter.')
+            elif second_decision == 'pass':
+                second_location = 'witch'
+                print('Your next location is a witch encounter.')
+            else:
+                raise ValueError('Invalid input')
+        return second_location
+        
+    def third_choice(player_lst, second_location, weapon_dict):
         """Asks the player their third and final choice.
         
         Args:
@@ -325,6 +373,55 @@ class Plot:
         
         Side effect:
         prints the ending destination for the current player"""
+        
+        highest_roll = dice_roll(player_lst)
+        print(f'{highest_roll[0]} you rolled the highest, you get to choose the path.')    
+        if second_location == 'NPC':
+            third_decision = input('Would you like to ignore or help the NPC?')
+            if third_decision == 'help':
+                npc_decision = input("Hi, I'm Gunner. Would you like to get a random item or fight the monster?")
+                if npc_decision == 'random item':
+                    list_of_items = ['sword', 'bow', 'dagger', 'staff']
+                    rand_item = random.choice(list_of_items)
+                    weapon_dict[player] = rand_item
+                elif npc_decision == 'fight the monster':
+                    Witch()
+                else:
+                    raise ValueError('Invalid input')    
+                third_location = 'get magic'
+                print('Your final action will be getting a reward.')
+            elif third_decision == 'ignore':
+                third_location = 'curse'
+                print('You will get cursed.')
+            else:
+                raise ValueError('Invalid input')
+        elif second_location == 'witch':
+            third_location = input('Would you like to run or fight the witch?')
+            if third_decision == 'fight':
+                Witch()
+                third_location = 'curse'
+                print('You will get cursed.')
+            elif third_decision == 'run':
+                third_location = 'get magic'
+                print('Your final action will be getting a reward.')
+            else: 
+                raise ValueError('Invalid input') 
+        elif second_location == 'lost':
+            third_location = 'starvation'
+            print('Sorry, there is nowhere to go anymore.')
+        return third_location 
+    
+    def final_location(third_location):
+        """Prints the final location and end result of the game.
+        
+        Args:
+        third_location(str): end location as a result of previous decision
+        
+        Side effect:
+        prints the result of the game
+        """
+
+        print('Your party has died of starvation') if third_location == 'starvation' else print('You have been cursed, you lost!') if third_location == 'curse' else print('You have obtained magic!')
 
 def start(player):
     """ Players have the opportunity to choose information, roll a dice and 
