@@ -522,7 +522,53 @@ def start(player):
     Prints how many pkayers that are wanted to play in that round
     
     """
-    
+    player_lst = [x for x in range(int(player))]
+   print("PLAYERLIST: ", player_lst)
+   player_dict = dice_roll(player_lst)
+   #return player_dict[0]
+   weapon_dict = {}
+   spells_dict = {}
+   for player in player_dict.keys():
+           option = input("what weapon would you like to choose? Enter:sword,bow,dagger,staff")
+           if option == "sword":
+               weapon_dict[player] = "sword"
+           else:
+               print("bow,dagger,staff")
+          
+               if option == "bow":
+                   weapon_dict[player] = "bow"
+               else:
+                   print("dagger,staff")
+              
+                   if option == "dagger":
+                       weapon_dict[player] = "dagger"
+                   else:
+                       print("staff")
+          
+                       if option == "staff":
+                           weapon_dict[player] = "staff"
+                       else:
+                           print("Return back to weapon objects")
+                      
+          
+           spell_option = input("what spell would you like to choose? Enter: healing_spell, poison_spell, fire_spell ")
+           if spell_option == "healing_spell":
+               spells_dict[player] = "healing_spell"
+           else:
+               print("poison_spell, fire_spell")
+              
+           if spell_option == "poison_spell":
+               spells_dict[player] = "poison_spell"
+           else:
+               print("fire_spell")
+          
+           if spell_option == "fire_spell":
+               spells_dict[player] = "fire_spell"
+           else:
+               print("please choose spell")
+   return player_dict[0]
+   len(player_dict)
+
 def end(player):
     """ outputs the ending player statistics and whether or not they made good 
         decisions throughout the game
