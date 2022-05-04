@@ -16,15 +16,14 @@ All of this information will be provided to the code through parameters."""
 
 
 
-class player:
+class Player:
     """ Summary: Showing the player’s information, the players’s characstic and their uniquely spells 
-    
-        Attributes:
-            player (str): name of the player
-            player_health (int): player's amount of health 
-            player_ability (str) : palyer's ability information 
+    Attributes:
+        player (str): name of the player
+        player_health (int): player's amount of health 
+        player_ability (str) : palyer's ability information 
     """
-    def __init__(self,player,player_health = None,player_strength = 25, player_dex_dexterity = 8,\
+    def __init__(self,player,player_health = 10,player_strength = 25, player_dex_dexterity = 8,\
                 player_constituiton =10 , player_intelligence = 16, player_wisdom = 10, \
                 player_charisma = 10):
     
@@ -108,29 +107,33 @@ class Monster:
         self.monster_att_damage = monster_att_damage
         
     def monster_attack(self,player,current_health): #has the attribute of the health
-            """Perform the monster actions after the player’s move, how monster gives attack after
-            players attack to monster. When playe's health reach to 0, the player die.
+        """Perform the monster actions after the player’s move, how monster gives attack after
+        players attack to monster. When playe's health reach to 0, the player die.
 
-            Args:
-                current_health (int): player's current health amount after attacked by players
+        Args:
+            current_health (int): player's current health amount after attacked by players
+        
+        Side effects:
+            The changed amount of health amount of the player.
             
-            Side effects:
-                The changed amount of health amount of the player.
-                
-            Return （int）: 
-                The player's remaining health amount by monster's damage attack 
+        Return （int）: 
+            The player's remaining health amount by monster's damage attack 
+        
+        Raises: 
+            Give the player a description of how much damage the monster does to them, and what kind of 
+            ability the monster used
             
-            Raises: 
-                Give the player a description of how much damage the monster does to them, and what kind of 
-                ability the monster used
-             
-            """
-        player.player_health -= self.monster_att_damage
+        """
+        player_obj = Player(player,player_health = None,player_strength = 25, player_dex_dexterity = 8,\
+                player_constituiton =10 , player_intelligence = 16, player_wisdom = 10, \
+                player_charisma = 10)   
+        # player.player_health -= self.monster_att_damage
+        player_obj -= self.monster_att_damage
         print("Your helath decreased for .")
         if plyaer.player_health <= 0:
             print(f"{player} died.")
             
-        return player.player_health
+        return player_obj
         
         
 class Witch(Monster):
@@ -145,28 +148,27 @@ class Witch(Monster):
         self.witch_att_damage = witch_att_damaged
    
     def monster_attack(witch_name,player, current_helath):
-            """Perform the monster actions after the player’s move, how monster gives attack after
-            players attack to monster. Witch will die when its health amount reaches to 0
+        """Perform the monster actions after the player’s move, how monster gives attack after
+        players attack to monster. Witch will die when its health amount reaches to 0
 
-            Args:
-                monster (str): the name of the witch
-                player: the name of player
-                current_health (int): player's current health amount after attacked by the monster
-            
-            Side effects:
-                The changed amount of health amount of the witch, and the attack caused by the witch 
-                according to its ability
-                
-            Return （int）: 
-                The amount of attack by the witch
-            
-            Raises: 
-                Give the player a description of how much damage the witch does to them
-             
-            """
-        Player.player_health -= self.witch_att_damaged
+        Args:
+            monster (str): the name of the witch
+            player: the name of player
+            current_health (int): player's current health amount after attacked by the monster
         
-        return self.player_health
+        Side effects:
+            The changed amount of health amount of the witch, and the attack caused by the witch 
+            according to its ability
+            
+        Return （int）: 
+            The amount of attack by the witch
+        
+        Raises: 
+            Give the player a description of how much damage the witch does to them
+            
+        """
+        player_obj -= self.witch_att_damaged
+        return player_obj
     
 class Dragon(Monster):
     """Summary: Subclass of Monster, displaying dragon's information as one kind of monster 
@@ -199,8 +201,8 @@ class Dragon(Monster):
                 Give the player a description of how much damage the dragon does to them
              
             """
-        Player.player_health -= self.dragon_att_damaged
-        return self.player_health
+        player_obj -= self.dragon_att_damaged
+        return player_obj
         
 
 class items_or_weapons:
