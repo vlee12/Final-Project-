@@ -228,7 +228,7 @@ class items_or_weapons:
         print (f"{self.player} has recieved a {self.name}")
     def ability(self):
         print(f"This {self.name} is able to do {self.base_damage}. It has a range of {range}")
-    def damage(self, monster):
+    def item_damage(self, monster):
         monster.monster_health = monster.monster_health - self.base_damage
         return monster.monster_health
     def __str__(self):
@@ -346,6 +346,7 @@ def damage(player_lst, monster, spells_dict, weapon_dict):
     value which represents how much health the monster has left.
     Returns(int): the monster’s health after being attacked by the player.
     """
+    spells_dict, weapon_dict = start(player)
     print (f"You have approached this monster, please make a role to see who will attack first")
     damage_dict = dice_roll(player_lst)
     player_count = 0
@@ -361,12 +362,13 @@ def damage(player_lst, monster, spells_dict, weapon_dict):
                     print ("invalid input please enter another option")
                     question2 = input("Would you like to use your weapon or magic?")
                 if question2 == "weapon":
-                    damage_dict[player_count].spell.damage(monster)
+                    weapon_dict.get(damage_dict[player_count]).item_damage(monster)
                 elif question2 == "magic":
-                    if spell_dict.get(damage_dict[player_count]) == "healing_spell":
+                    if spells_dict.get(damage_dict[player_count]) == "healing_spell":
                         heal_player = input("Which player would you like to heal?")
-                        damage_dict[player_count].healing_spell.heal(heal_player)
-                    damage_dict[player_count].spell.spell_damage(monster)
+                        spells_dict.get(damage_dict[player_count]).heal(heal_player)
+                    else:
+                        spells_dict.get(damage_dict[player_count]).spell_damage(monster)
                 print (f"Your turn is now over, it's the {monster}'s turn to attack")
                 monster.monster_attack()
             elif question == "n":
@@ -586,7 +588,7 @@ def start(player):
                print("please choose spell")
    #return player_dict[0]
     len(player_dict)
-    return spells_dict and weapon_dict
+    return spells_dict, weapon_dict
 
 def end(player):
     """ outputs the ending player statistics and whether or not they made good 
