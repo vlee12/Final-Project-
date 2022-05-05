@@ -608,6 +608,14 @@ def main(filepath):
     Side effect:
     reads the text file """
     
+    start()
+    game = Plot()
+    game.first_choice()
+    game.second_choice()
+    game.third_choice()
+    game.final_location()
+    end()
+    
 def parse_args(arglist):
     """Process command line arguments.
     
@@ -616,6 +624,10 @@ def parse_args(arglist):
     
     Returns:
     namespace: the parsed arguments, as a namespace."""   
+    
+    parser = ArgumentParser()
+    parser.add_argument('filepath', help = 'path to player text file')
+    return parser.parse_args(arglist)
         
 if __name__ == "__main__":
     args = parse_args(sys.argv[1:])
