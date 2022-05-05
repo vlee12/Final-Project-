@@ -1,12 +1,6 @@
 from argparse import ArgumentParser
 import sys
 import re
-<<<<<<< HEAD
-
-=======
-import random
-import time
->>>>>>> 004c1d47bf3ae0a9712a574a02c894efcf03fda5
 """Information need: 
 Our program will be a choose your own adventure game based on D&D. 
 In order for the program to function, the players will initially have to create a character which they will use to play throughout the game. 
@@ -70,19 +64,11 @@ class Player:
         """ Summary: read the text file in encoding UTF-8 to store player's information (ex. strength(int), defense(int)) and pass around classes. Using 
             regular expression to pick up player's information
 
-<<<<<<< HEAD
             Args:
                 filepath (str): path to a text file containing player's information
             
             Side effects: 
                 Store player's ability and health into two variables for running the game
-=======
-        Args:
-            filepath (str): path to a text file containing player's information
-            
-        Side effects: 
-            Store player's ability and health into two variables for running the game
->>>>>>> 004c1d47bf3ae0a9712a574a02c894efcf03fda5
                 
         """
         
@@ -211,15 +197,9 @@ class Dragon(Monster):
             Raises: 
                 Give the player a description of how much damage the dragon does to them
              
-<<<<<<< HEAD
         """
         Player.player_health -= self.dragon_att_damaged
         return self.player_health
-=======
-            """
-        player_obj -= self.dragon_att_damaged
-        return player_obj
->>>>>>> 004c1d47bf3ae0a9712a574a02c894efcf03fda5
         
 class items_or_weapons:
 	"""Summary: Players are allowed one of 4 weapons when starting the game in order to be able to do damage. 
@@ -353,12 +333,8 @@ class fire_spell(spells_and_curses):
     def __init__(self):
         super().__init__() 
         self.name = "fire spell"
-<<<<<<< HEAD
         
 def damage(player_lst, monster):
-=======
-def damage(player_lst, monster, spells_dict, weapon_dict):
->>>>>>> 004c1d47bf3ae0a9712a574a02c894efcf03fda5
     """Summary: Using the players' weapon (damage stats) to hurt the monster until the monster's health is empty or the players are dead
     Args(int, int): player_weapon is an integer value which represents the amount of damage a player can do. monster_health- an integer 
     value which represents how much health the monster has left.
@@ -381,11 +357,7 @@ def damage(player_lst, monster, spells_dict, weapon_dict):
                 if question2 == "weapon":
                     damage_dict[player_count].spell.damage(monster)
                 elif question2 == "magic":
-<<<<<<< HEAD
                     if player.spell == "heal":
-=======
-                    if spell_dict.get(damage_dict[player_count]) == "healing_spell":
->>>>>>> 004c1d47bf3ae0a9712a574a02c894efcf03fda5
                         heal_player = input("Which player would you like to heal?")
                         player.healing_spell.heal(heal_player)
                     damage_dict[player_count].spell.spell_damage(monster)
@@ -555,9 +527,6 @@ def start(player):
     Prints how many pkayers that are wanted to play in that round
     
     """
-<<<<<<< HEAD
-    
-=======
     player_lst = [x for x in range(int(player))]
     print("PLAYERLIST: ", player_lst)
     player_dict = dice_roll(player_lst)
@@ -613,7 +582,6 @@ def start(player):
     len(player_dict)
     return spells_dict and weapon_dict
 
->>>>>>> 004c1d47bf3ae0a9712a574a02c894efcf03fda5
 def end(player):
     """ outputs the ending player statistics and whether or not they made good 
         decisions throughout the game
