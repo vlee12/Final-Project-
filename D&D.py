@@ -1,6 +1,8 @@
 from argparse import ArgumentParser
 import sys
 import re
+import random
+import time
 """Information need: 
 Our program will be a choose your own adventure game based on D&D. 
 In order for the program to function, the players will initially have to create a character which they will use to play throughout the game. 
@@ -15,7 +17,7 @@ All of this information will be provided to the code through parameters."""
 
 
 
-class Player:
+class player:
     """ Summary: Showing the player’s information, the players’s characstic and their uniquely spells 
     
         Attributes:
@@ -62,13 +64,13 @@ class Player:
         
     def file_read(filepath):
         """ Summary: read the text file in encoding UTF-8 to store player's information (ex. strength(int), defense(int)) and pass around classes. Using 
-            regular expression to pick up player's information
+        regular expression to pick up player's information
 
-            Args:
-                filepath (str): path to a text file containing player's information
+        Args:
+            filepath (str): path to a text file containing player's information
             
-            Side effects: 
-                Store player's ability and health into two variables for running the game
+        Side effects: 
+            Store player's ability and health into two variables for running the game
                 
         """
         
@@ -105,30 +107,28 @@ class Monster:
         self.monster_health = monster_health
         self.monster_att_damage = monster_att_damage
         
-    def monster_attack(self,player,current_health):
-        #has the attribute of the health
+    def monster_attack(self,player,current_health): #has the attribute of the health
         """Perform the monster actions after the player’s move, how monster gives attack after
-            players attack to monster. When playe's health reach to 0, the player die.
+        players attack to monster. When playe's health reach to 0, the player die.
 
-            Args:
-                current_health (int): player's current health amount after attacked by players
+        Args:
+            current_health (int): player's current health amount after attacked by players
             
-            Side effects:
-                The changed amount of health amount of the player.
+        Side effects:
+            The changed amount of health amount of the player.
                 
-            Return （int）: 
-                The player's remaining health amount by monster's damage attack 
+        Return （int）: 
+            The player's remaining health amount by monster's damage attack 
             
-            Raises: 
-                Give the player a description of how much damage the monster does to them, and what kind of 
-                ability the monster used
+        Raises: 
+            Give the player a description of how much damage the monster does to them, and what kind of 
+            ability the monster used
              
         """
-        Player.player_health -= self.monster_att_damage
+        player.player_health -= self.monster_att_damage
         print("Your helath decreased for .")
         if player.player_health <= 0:
             print(f"{player} died.")
-            
         return player.player_health
         
         
@@ -139,28 +139,28 @@ class Witch(Monster):
         Monster (str): a type of monster that can attack to players when they choose a bad path in D&D game
     
     """
-    def __init__(self,player, witch_health = 130,witch_att_damage = 17):
+    def __init__(self,player, witch_health = 130, witch_att_damage = 17):
         self.witch_health = witch_health
         self.witch_att_damage = witch_att_damaged
    
     def monster_attack(witch_name,player, current_helath):
         """Perform the monster actions after the player’s move, how monster gives attack after
-            players attack to monster. Witch will die when its health amount reaches to 0
+        players attack to monster. Witch will die when its health amount reaches to 0
 
-            Args:
-                monster (str): the name of the witch
-                player: the name of player
-                current_health (int): player's current health amount after attacked by the monster
+        Args:
+            monster (str): the name of the witch
+            player: the name of player
+            current_health (int): player's current health amount after attacked by the monster
             
-            Side effects:
-                The changed amount of health amount of the witch, and the attack caused by the witch 
-                according to its ability
+        Side effects:
+        The changed amount of health amount of the witch, and the attack caused by the witch 
+            according to its ability
                 
-            Return （int）: 
-                The amount of attack by the witch
+        Return （int）: 
+            The amount of attack by the witch
             
-            Raises: 
-                Give the player a description of how much damage the witch does to them
+        Raises: 
+            Give the player a description of how much damage the witch does to them
              
         """
         Player.player_health -= self.witch_att_damaged
@@ -181,38 +181,45 @@ class Dragon(Monster):
         
     def monster_attack(self,player,current_health):
         """Perform the dragon actions after the player’s move, how dragon gives attack after
-            players attack to dragon
+        players attack to dragon
 
-            Args:
-                monster (str): the name of the dragon
-                current_health (int): current health amount after attacked by players
-            
-            Side effects:
-                The changed amount of health amount of the dragon, and the attack caused by the dragon 
-                according to its ability
+        Args:
+            monster (str): the name of the dragon
+            current_health (int): current health amount after attacked by players
+          
+        Side effects:
+        The changed amount of health amount of the dragon, and the attack caused by the dragon 
+        according to its ability
                 
-            Return （int）: 
-                The amount of attack by the dragon to players
+        Return （int）: 
+            The amount of attack by the dragon to players
             
-            Raises: 
-                Give the player a description of how much damage the dragon does to them
+        Raises: 
+            Give the player a description of how much damage the dragon does to them
              
-        """
-        Player.player_health -= self.dragon_att_damaged
-        return self.player_health
+            """
+        player_obj -= self.dragon_att_damaged
+        return player_obj
         
+def dice_roll(player_lst):
+    min = 1
+    max = 20
+    player_roll = {}
+    for player in player_lst:
+        roll= random.randint(min, max)
+        player_roll[player] = roll
+        print(f"{player} has rolled a {roll}")
+    sorted_dict = sorted(player_roll.items(), key = lambda num: num[1], reverse=True)
+    return sorted_dict
+
 class items_or_weapons:
-	"""Summary: Players are allowed one of 4 weapons when starting the game in order to be able to do damage. 
+    """Summary: Players are allowed one of 4 weapons when starting the game in order to be able to do damage. 
     The weapons are represented below as one of 4 methods. Also includes a damage method which calls one of the
     weapons when the player is fighting and calculates the amount of damage done to a monster based on the player’s health.
-    
-    Important Comment: we were also considering combining all of the weapon methods into one giant method and just creating
+    Important Comment: we wergite also considering combining all of the weapon methods into one giant method and just creating
     different items_or_weapons objects for each player.
-    
 	Attributes: 
-        base_damage(int): Baseline amount of damage
-    """
-        
+        base_damage(int): Baseline amount of damage"""
     def __init__(self, name = None, base_damage = 25, range = 10):
         self.base_damage = base_damage
         self.range = range
@@ -226,22 +233,24 @@ class items_or_weapons:
         return monster.monster_health
     def __str__(self):
         print (f"{self.name}: damage{self.base_damage} range:{self.range}")
-
 class sword(items_or_weapons):
-	#"""Summary: Simulates a sword in game which players can use against monsters.
-	#Args (player obj): player which receives the sword
-	#Side effects: prints out a sword-specific statement when the player uses it. 
-	#Returns(int): the amount of damage which this weapon is able to do."""
+    """Summary: Simulates a sword in game which players can use against monsters.
+	Args (player obj): player which receives the sword
+	Side effects: prints out a sword-specific statement when the player uses it. 
+	Returns(int): the amount of damage which this weapon is able to do."""
     def __init__(self):    
         super().__init__()
         if player.player_strength > 10:
             self.base_damage += 10
         self.name = "sword"
 class bow(items_or_weapons):
-	"""Summary: Simulates archery equipment in game which players can use against monsters.
-	Args (player obj): player which receives the bow
-	Side effects: prints out an archery-specific statement when the player uses it. 
-    Returns(int): the amount of damage which this weapon is able to do."""
+    """Summary: Simulates archery equipment in game which players can use against monsters.
+	Args (player obj): 
+        player which receives the bow
+	Side effects: 
+        prints out an archery-specific statement when the player uses it. 
+    Returns(int): 
+        the amount of damage which this weapon is able to do."""
     def __init__(self):    
         super().__init__()
         if player.player_wisdom > 9:
@@ -249,7 +258,7 @@ class bow(items_or_weapons):
             self.range = 20
         self.name = "bow"
 class dagger(items_or_weapons):
-	"""Summary: Simulates a dagger in game which players can use against monsters. 
+    """Summary: Simulates a dagger in game which players can use against monsters. 
 	Args (player obj): player which receives the dagger
 	Side effects: prints out a dagger-specific statement when the player uses it. 
 	Returns(int): the amount of damage which this weapon is able to do."""
@@ -260,10 +269,9 @@ class dagger(items_or_weapons):
         self.name = "dagger"
 class staff(items_or_weapons): 
     """Summary: Simulates a staff in game
-    Args (player obj): player which receives the staff
-    Side effects: prints out a staff-specific statement when the player uses it. 
-    Returns(int): the amount of damage which this weapon is able to do.
-    """
+	Args (player obj): player which receives the staff
+	Side effects: prints out a staff-specific statement when the player uses it. 
+	Returns(int): the amount of damage which this weapon is able to do."""
     def __init__(self):
         super().__init__()
         if player.player_wisdom > 8:
@@ -272,9 +280,7 @@ class staff(items_or_weapons):
 class spells_and_curses:
     """Summary: Simulates different types of spells/curses that the player can use. There are a variety of spells which could be used.  
 	Attributes: 
-    spell_stats(int): baseline spell statistics which are applicable for every spell listed.
-    """
-    
+        spell_stats(int): baseline spell statistics which are applicable for every spell listed. """
     def __init__(self, name = None, spell_stats = 20):
         self.spell_stats = spell_stats
         self.name = name
@@ -310,9 +316,10 @@ class healing_spell(spells_and_curses):
         return player.health
 class poison_spell(spells_and_curses):
     """Summary: A spell which is supposed to simulate poison. 
-        Args(Player): 
-        player(player obj) -The player that owns the spell.
-        Returns(int): The amount of damage done. Calculated by adding the player statistics plus base damage of spell."""
+    Args(Player): 
+    player(player obj) -The player that owns the spell.
+    Returns(int): The amount of damage done. Calculated by adding the player statistics plus base damage of spell.
+    """
     def __init__(self):
         super().__init__() 
         self.name = "posion spell"
@@ -333,8 +340,7 @@ class fire_spell(spells_and_curses):
     def __init__(self):
         super().__init__() 
         self.name = "fire spell"
-        
-def damage(player_lst, monster):
+def damage(player_lst, monster, spells_dict, weapon_dict):
     """Summary: Using the players' weapon (damage stats) to hurt the monster until the monster's health is empty or the players are dead
     Args(int, int): player_weapon is an integer value which represents the amount of damage a player can do. monster_health- an integer 
     value which represents how much health the monster has left.
@@ -642,14 +648,6 @@ def main(filepath):
     Side effect:
     reads the text file """
     
-    start()
-    game = Plot()
-    game.first_choice()
-    game.second_choice()
-    game.third_choice()
-    game.final_location()
-    end()
-    
 def parse_args(arglist):
     """Process command line arguments.
     
@@ -657,11 +655,7 @@ def parse_args(arglist):
     arglist(list of str): arguments from the command line
     
     Returns:
-    namespace: the parsed arguments, as a namespace."""  
-    
-    parser = ArgumentParser()
-    parser.add_argument('filepath', help = 'path to player text file')
-    return parser.parse_args(arglist) 
+    namespace: the parsed arguments, as a namespace."""   
         
 if __name__ == "__main__":
     args = parse_args(sys.argv[1:])
