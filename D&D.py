@@ -599,46 +599,6 @@ def end(player):
     Returns:
      the ending player statistics
    """
-def damage(player_lst, monster, spells_dict, weapon_dict):
-    """Summary: Using the players' weapon (damage stats) to hurt the monster until the monster's health is empty or the players are dead
-    Args(int, int): player_weapon is an integer value which represents the amount of damage a player can do. monster_health- an integer 
-    value which represents how much health the monster has left.
-    Returns(int): the monster’s health after being attacked by the player.
-    """
-    #var = start(player)
-    print (f"You have approached this monster, please make a role to see who will attack first")
-    damage_dict = dice_roll(player_lst)
-    player_count = 0
-    for player in player_lst:
-        if monster.monster_health > 0 & damage_dict[player_count].health > 0:
-            question=input(f"{damage_dict[player_count]}, would you like to attack? (y/n)")
-            while question != "y" or "n":
-                print ("invalid input please enter another option")
-                question=input(f"{damage_dict[player_count]}, would you like to attack? (y/n)")
-            if question == "y":
-                question2 = input("Would you like to use your weapon or magic?")
-                while question2 != "weapon" or "magic":
-                    print ("invalid input please enter another option")
-                    question2 = input("Would you like to use your weapon or magic?")
-                if question2 == "weapon":
-                    weapon_dict.get(damage_dict[player_count]).damage(monster)
-                elif question2 == "magic":
-                    if spells_dict.get(damage_dict[player_count]) == "healing_spell":
-                        heal_player = input("Which player would you like to heal?")
-                        healing_spell.heal(heal_player)
-                    else:
-                        spells_dict.get(damage_dict[player_count]).spell_damage(monster)
-                print (f"Your turn is now over, it's the {monster}'s turn to attack")
-                monster.monster_attack()
-            elif question == "n":
-                print (f"It's the {monster}'s turn to attack")
-                monster.monster_attack()
-            player_count += 1
-        elif monster.monster_health == 0:
-            print ("Success! you have killed the monster")
-        elif damage_dict[player_count].health == 0:
-            print (f"{damage_dict[player_count].health} has died. Rest in peace")
-            del(damage_dict[player_count])
 def main(filepath):
     """Open and read the file.
     
