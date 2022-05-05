@@ -1,7 +1,12 @@
 from argparse import ArgumentParser
 import sys
 import re
+<<<<<<< HEAD
 
+=======
+import random
+import time
+>>>>>>> 9a525967fa415abe52ab401c43bfb165d526b082
 """Information need: 
 Our program will be a choose your own adventure game based on D&D. 
 In order for the program to function, the players will initially have to create a character which they will use to play throughout the game. 
@@ -18,6 +23,7 @@ All of this information will be provided to the code through parameters."""
 
 class Player:
     """ Summary: Showing the player’s information, the players’s characstic and their uniquely spells 
+<<<<<<< HEAD
     Attributes:
         player (str): name of the player
         player_health (int): player's amount of health 
@@ -28,11 +34,17 @@ class Player:
         player_wisdowm (int): player's wisdom 
         player_charisma (int): player's charisma
         
+=======
+    
+        Attributes:
+            player (str): name of the player
+            player_health (int): player's amount of health 
+            player_ability (str) : palyer's ability information 
+>>>>>>> 9a525967fa415abe52ab401c43bfb165d526b082
     """
     def __init__(self,player,player_health = 10,player_strength = 25, player_dex_dexterity = 8,\
                 player_constituiton =10 , player_intelligence = 16, player_wisdom = 10, \
                 player_charisma = 10):
-    
         self.player = player
         self.player_health = player_health
         self.player_strength = player_strength
@@ -47,10 +59,17 @@ class Player:
 
         Args:
             filepath (str): path to a text file containing player's information
+<<<<<<< HEAD
         
         Side effects: 
             Store player's ability and health into two variables for running the game
             
+=======
+            
+        Side effects: 
+            Store player's ability and health into two variables for running the game
+                
+>>>>>>> 9a525967fa415abe52ab401c43bfb165d526b082
         """
         
         with open (filepath,"r",encoding="utf-8") as f:
@@ -178,8 +197,14 @@ class Witch(Monster):
             Give the player a description of how much damage the witch does to them
             
         """
+<<<<<<< HEAD
         player_obj -= self.witch_att_damaged
         # return player_obj
+=======
+        Player.player_health -= self.witch_att_damaged
+        
+        return self.player_health
+>>>>>>> 9a525967fa415abe52ab401c43bfb165d526b082
     
 class Dragon(Monster):
     """Summary: Subclass of Monster, displaying dragon's information as one kind of monster 
@@ -213,14 +238,29 @@ class Dragon(Monster):
              
             """
         player_obj -= self.dragon_att_damaged
+<<<<<<< HEAD
         # return player_obj
         
+=======
+        return player_obj
+        
+def dice_roll(player_lst):
+    min = 1
+    max = 20
+    player_roll = {}
+    for player in player_lst:
+        roll= random.randint(min, max)
+        player_roll[player] = roll
+        print(f"{player} has rolled a {roll}")
+    sorted_dict = sorted(player_roll.items(), key = lambda num: num[1], reverse=True)
+    return sorted_dict
+>>>>>>> 9a525967fa415abe52ab401c43bfb165d526b082
 
 class items_or_weapons:
 	"""Summary: Players are allowed one of 4 weapons when starting the game in order to be able to do damage. 
     The weapons are represented below as one of 4 methods. Also includes a damage method which calls one of the
     weapons when the player is fighting and calculates the amount of damage done to a monster based on the player’s health.
-    Important Comment: we were also considering combining all of the weapon methods into one giant method and just creating
+    Important Comment: we wergite also considering combining all of the weapon methods into one giant method and just creating
     different items_or_weapons objects for each player.
 	Attributes: 
         base_damage(int): Baseline amount of damage """
@@ -232,7 +272,7 @@ class items_or_weapons:
         print (f"{self.player} has recieved a {self.name}")
     def ability(self):
         print(f"This {self.name} is able to do {self.base_damage}. It has a range of {range}")
-    def damage(self, monster):
+    def item_damage(self, monster):
         monster.monster_health = monster.monster_health - self.base_damage
         return monster.monster_health
     def __str__(self):
@@ -245,7 +285,7 @@ class sword(items_or_weapons):
     def __init__(self):    
         super().__init__()
         if player.player_strength > 10:
-            self.base_damage = super.base_damage + 10
+            self.base_damage += 10
         self.name = "sword"
 class bow(items_or_weapons):
 	"""Summary: Simulates archery equipment in game which players can use against monsters.
@@ -255,8 +295,8 @@ class bow(items_or_weapons):
     def __init__(self):    
         super().__init__()
         if player.player_wisdom > 9:
-            self.base_damage = super.base_damage + 5
-            self.range = super.range + 15
+            self.base_damage = 30
+            self.range = 20
         self.name = "bow"
 class dagger(items_or_weapons):
 	"""Summary: Simulates a dagger in game which players can use against monsters. 
@@ -340,12 +380,13 @@ class fire_spell(spells_and_curses):
     def __init__(self):
         super().__init__() 
         self.name = "fire spell"
-def damage(player_lst, monster):
+def damage(player_lst, monster, spells_dict, weapon_dict):
     """Summary: Using the players' weapon (damage stats) to hurt the monster until the monster's health is empty or the players are dead
     Args(int, int): player_weapon is an integer value which represents the amount of damage a player can do. monster_health- an integer 
     value which represents how much health the monster has left.
     Returns(int): the monster’s health after being attacked by the player.
     """
+    spells_dict, weapon_dict = start(player)
     print (f"You have approached this monster, please make a role to see who will attack first")
     damage_dict = dice_roll(player_lst)
     player_count = 0
@@ -361,12 +402,20 @@ def damage(player_lst, monster):
                     print ("invalid input please enter another option")
                     question2 = input("Would you like to use your weapon or magic?")
                 if question2 == "weapon":
-                    damage_dict[player_count].spell.damage(monster)
+                    weapon_dict.get(damage_dict[player_count]).item_damage(monster)
                 elif question2 == "magic":
+<<<<<<< HEAD
                     if player.spell == "heal":
                         heal_player = input("Which player would you like to heal?")
                         player.healing_spell.heal(heal_player)
                     damage_dict[player_count].spell.spell_damage(monster)
+=======
+                    if spells_dict.get(damage_dict[player_count]) == "healing_spell":
+                        heal_player = input("Which player would you like to heal?")
+                        spells_dict.get(damage_dict[player_count]).heal(heal_player)
+                    else:
+                        spells_dict.get(damage_dict[player_count]).spell_damage(monster)
+>>>>>>> 9a525967fa415abe52ab401c43bfb165d526b082
                 print (f"Your turn is now over, it's the {monster}'s turn to attack")
                 monster.monster_attack()
             elif question == "n":
@@ -534,51 +583,73 @@ def start(player):
     
     """
     player_lst = [x for x in range(int(player))]
+<<<<<<< HEAD
    print("PLAYERLIST: ", player_lst)
    player_dict = dice_roll(player_lst)
    #return player_dict[0]
    weapon_dict = {}
    spells_dict = {}
    for player in player_dict.keys():
+=======
+    print("PLAYERLIST: ", player_lst)
+    player_dict = dice_roll(player_lst)
+    #return player_dict[0]
+    sword = sword()
+    bow  = bow()
+    staff = staff()
+    dagger = dagger()
+    healing_spell = healing_spell()
+    fire_spell = fire_spell()
+    poison_spell = poison_spell()
+    weapon_dict = {}
+    spells_dict = {}
+    for player in player_dict.keys():
+>>>>>>> 9a525967fa415abe52ab401c43bfb165d526b082
            option = input("what weapon would you like to choose? Enter:sword,bow,dagger,staff")
            if option == "sword":
-               weapon_dict[player] = "sword"
+               weapon_dict[player] = sword
            else:
                print("bow,dagger,staff")
           
                if option == "bow":
-                   weapon_dict[player] = "bow"
+                   weapon_dict[player] = bow
                else:
                    print("dagger,staff")
               
                    if option == "dagger":
-                       weapon_dict[player] = "dagger"
+                       weapon_dict[player] = dagger
                    else:
                        print("staff")
           
                        if option == "staff":
-                           weapon_dict[player] = "staff"
+                           weapon_dict[player] = staff
                        else:
                            print("Return back to weapon objects")
                       
           
            spell_option = input("what spell would you like to choose? Enter: healing_spell, poison_spell, fire_spell ")
            if spell_option == "healing_spell":
-               spells_dict[player] = "healing_spell"
+               spells_dict[player] = healing_spell
            else:
                print("poison_spell, fire_spell")
               
            if spell_option == "poison_spell":
-               spells_dict[player] = "poison_spell"
+               spells_dict[player] = poison_spell
            else:
                print("fire_spell")
           
            if spell_option == "fire_spell":
-               spells_dict[player] = "fire_spell"
+               spells_dict[player] = fire_spell
            else:
                print("please choose spell")
+<<<<<<< HEAD
    return player_dict[0]
    len(player_dict)
+=======
+   #return player_dict[0]
+    len(player_dict)
+    return spells_dict, weapon_dict
+>>>>>>> 9a525967fa415abe52ab401c43bfb165d526b082
 
 def end(player):
     """ outputs the ending player statistics and whether or not they made good 
@@ -589,7 +660,6 @@ def end(player):
     Returns:
      the ending player statistics
    """
-   
 def main(filepath):
     """Open and read the file.
     
@@ -599,6 +669,14 @@ def main(filepath):
     Side effect:
     reads the text file """
     
+    start()
+    game = Plot()
+    game.first_choice()
+    game.second_choice()
+    game.third_choice()
+    game.final_location()
+    end()
+    
 def parse_args(arglist):
     """Process command line arguments.
     
@@ -607,6 +685,10 @@ def parse_args(arglist):
     
     Returns:
     namespace: the parsed arguments, as a namespace."""   
+    
+    parser = ArgumentParser()
+    parser.add_argument('filepath', help = 'path to player text file')
+    return parser.parse_args(arglist)
         
 if __name__ == "__main__":
     args = parse_args(sys.argv[1:])
