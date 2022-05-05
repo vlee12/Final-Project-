@@ -609,9 +609,9 @@ def end(player):
     Returns:
      the ending player statistics
    """
-   player_lst = 'Dungeon Master'
-   game = 'Dungeons and Dragons!'
-   print(f"Thank you,{player_lst} for playing and exploring {game}")
+    player_lst = 'Dungeon Master'
+    game = 'Dungeons and Dragons!'
+    print(f"Thank you,{player_lst} for playing and exploring {game}")
 def main(filepath):
     """Open and read the file.
     
