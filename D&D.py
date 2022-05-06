@@ -1,12 +1,8 @@
 from argparse import ArgumentParser
 import sys
 import re
-<<<<<<< HEAD
-
-=======
 import random
 import time
->>>>>>> 9a525967fa415abe52ab401c43bfb165d526b082
 """Information need: 
 Our program will be a choose your own adventure game based on D&D. 
 In order for the program to function, the players will initially have to create a character which they will use to play throughout the game. 
@@ -23,7 +19,6 @@ All of this information will be provided to the code through parameters."""
 
 class Player:
     """ Summary: Showing the player’s information, the players’s characstic and their uniquely spells 
-<<<<<<< HEAD
     Attributes:
         player (str): name of the player
         player_health (int): player's amount of health 
@@ -34,17 +29,11 @@ class Player:
         player_wisdowm (int): player's wisdom 
         player_charisma (int): player's charisma
         
-=======
-    
-        Attributes:
-            player (str): name of the player
-            player_health (int): player's amount of health 
-            player_ability (str) : palyer's ability information 
->>>>>>> 9a525967fa415abe52ab401c43bfb165d526b082
     """
-    def __init__(self,player,player_health = 10,player_strength = 25, player_dex_dexterity = 8,\
-                player_constituiton =10 , player_intelligence = 16, player_wisdom = 10, \
-                player_charisma = 10):
+    def __init__(self,player=None,player_health = 10,player_strength = 25,
+                player_dex_dexterity = 8, player_constituiton =10 , player_intelligence = 16, 
+                player_wisdom = 10, player_charisma = 10):
+        
         self.player = player
         self.player_health = player_health
         self.player_strength = player_strength
@@ -54,42 +43,44 @@ class Player:
         self.player_charisma = player_charisma
         
     def file_read(filepath):
-        """ Summary: read the text file in encoding UTF-8 to store player's information (ex. strength(int), defense(int)) and pass around classes. Using 
-        regular expression to pick up player's information
+        """read the text file in encoding UTF-8 to store player's information (ex. strength(int), defense(int)) 
+        and pass around classes. Using regular expression to pick up player's information
 
         Args:
-            filepath (str): path to a text file containing player's information
-<<<<<<< HEAD
+            filepath (str): string of file name
+        Side effects: 
+            Store player's ability and health into two variables for running the game
         
-        Side effects: 
-            Store player's ability and health into two variables for running the game
-            
-=======
-            
-        Side effects: 
-            Store player's ability and health into two variables for running the game
-                
->>>>>>> 9a525967fa415abe52ab401c43bfb165d526b082
         """
-        
         with open (filepath,"r",encoding="utf-8") as f:
-            expr = r ''' regex '''
-        
-            if re.search(expr,player):
-                match = re.search(expr,player)
+            values = []
+            expr = r ''' \d+ '''
             
-                # match function may need to update to correct one
-                self.player_health = match.player_health
-                self.player_strength = match.player_strength
-                self.player_dex_dexterity = match.player_dex_dexterity
-                self.player_intelligence = match.player_intelligence
-                self.player_wisdom = match.player_wisdom
-                self.player_charisma = match.player_charisma
-                self.player.append(name)
-            else:
-                raise ValueError("Invalid input!")
-    
-    def players(self，player8)：
+            for line in f:
+                splitted = line.split(':')[0]
+                splitted = splitted.split(' ')
+                content = splitted[-1]
+                index = match.group(0) 
+                values.append(index)
+            self.health,self.strength,self.dexterity,\
+            self.intelligence,self.wisdom,self.charisma = values
+        return values
+        
+            # if re.search(expr,player):
+            #     match = re.search(expr,player)
+            
+            #     # match function may need to update to correct one
+            #     self.player_health = match.player_health
+            #     self.player_strength = match.player_strength
+            #     self.player_dex_dexterity = match.player_dex_dexterity
+            #     self.player_intelligence = match.player_intelligence
+            #     self.player_wisdom = match.player_wisdom
+            #     self.player_charisma = match.player_charisma
+            #     self.player.append(name)
+            # else:
+            #     raise ValueError("Invalid input!")
+            
+    def players(self):
         
         print("For the game, do you want to input the plyaer's information or upload a file to read?")
         choice = input("If you want to make an input, enter 1.\n"
@@ -97,14 +88,14 @@ class Player:
         
         self.player = []
         if choice == "1":
-            number_of_players = input("The minimum player require for the game is 1 player,\n"\
+            number_of_players = input("The minimum player require for the game is 1 player,\n"
                                         "the upper limit is 4 players.\n"\
                                         "How many players you want to have for the game?\n")
             number_of_players = int(number_of_players)
             
             while number_of_players not in range (1,5):
-                    number_of_players = input("The minimum player require for the game is 1 player,\n"\
-                                        "the upper limit is 4 players.\n"\
+                    number_of_players = input("The minimum player require for the game is 1 player,\n"
+                                        "the upper limit is 4 players.\n"
                                         "How many players you want to have for the game?\n")
             for player in range(number_of_players):
                 name = input("Please enter your player name")
@@ -116,11 +107,6 @@ class Player:
             file_read(filepath)
             
      
-        
-
-
-            
-            
             
             
 class Monster:
@@ -154,8 +140,8 @@ class Monster:
             ability the monster used
             
         """
-        player_obj = Player(player,player_health = 10,player_strength = 25, player_dex_dexterity = 8,\
-                player_constituiton =10 , player_intelligence = 16, player_wisdom = 10, \
+        player_obj = Player(player=None,player_health = 10,player_strength = 25, player_dex_dexterity = 8,
+                player_constituiton =10 , player_intelligence = 16, player_wisdom = 10, 
                 player_charisma = 10)   
         # player.player_health -= self.monster_att_damage
         player_obj = player_obj - self.monster_att_damage
@@ -197,14 +183,8 @@ class Witch(Monster):
             Give the player a description of how much damage the witch does to them
             
         """
-<<<<<<< HEAD
         player_obj -= self.witch_att_damaged
         # return player_obj
-=======
-        Player.player_health -= self.witch_att_damaged
-        
-        return self.player_health
->>>>>>> 9a525967fa415abe52ab401c43bfb165d526b082
     
 class Dragon(Monster):
     """Summary: Subclass of Monster, displaying dragon's information as one kind of monster 
@@ -238,10 +218,6 @@ class Dragon(Monster):
              
             """
         player_obj -= self.dragon_att_damaged
-<<<<<<< HEAD
-        # return player_obj
-        
-=======
         return player_obj
         
 def dice_roll(player_lst):
@@ -254,7 +230,6 @@ def dice_roll(player_lst):
         print(f"{player} has rolled a {roll}")
     sorted_dict = sorted(player_roll.items(), key = lambda num: num[1], reverse=True)
     return sorted_dict
->>>>>>> 9a525967fa415abe52ab401c43bfb165d526b082
 
 class items_or_weapons:
 	"""Summary: Players are allowed one of 4 weapons when starting the game in order to be able to do damage. 
@@ -404,18 +379,11 @@ def damage(player_lst, monster, spells_dict, weapon_dict):
                 if question2 == "weapon":
                     weapon_dict.get(damage_dict[player_count]).item_damage(monster)
                 elif question2 == "magic":
-<<<<<<< HEAD
-                    if player.spell == "heal":
-                        heal_player = input("Which player would you like to heal?")
-                        player.healing_spell.heal(heal_player)
-                    damage_dict[player_count].spell.spell_damage(monster)
-=======
                     if spells_dict.get(damage_dict[player_count]) == "healing_spell":
                         heal_player = input("Which player would you like to heal?")
                         spells_dict.get(damage_dict[player_count]).heal(heal_player)
                     else:
                         spells_dict.get(damage_dict[player_count]).spell_damage(monster)
->>>>>>> 9a525967fa415abe52ab401c43bfb165d526b082
                 print (f"Your turn is now over, it's the {monster}'s turn to attack")
                 monster.monster_attack()
             elif question == "n":
@@ -583,14 +551,6 @@ def start(player):
     
     """
     player_lst = [x for x in range(int(player))]
-<<<<<<< HEAD
-   print("PLAYERLIST: ", player_lst)
-   player_dict = dice_roll(player_lst)
-   #return player_dict[0]
-   weapon_dict = {}
-   spells_dict = {}
-   for player in player_dict.keys():
-=======
     print("PLAYERLIST: ", player_lst)
     player_dict = dice_roll(player_lst)
     #return player_dict[0]
@@ -604,7 +564,6 @@ def start(player):
     weapon_dict = {}
     spells_dict = {}
     for player in player_dict.keys():
->>>>>>> 9a525967fa415abe52ab401c43bfb165d526b082
            option = input("what weapon would you like to choose? Enter:sword,bow,dagger,staff")
            if option == "sword":
                weapon_dict[player] = sword
@@ -642,14 +601,9 @@ def start(player):
                spells_dict[player] = fire_spell
            else:
                print("please choose spell")
-<<<<<<< HEAD
-   return player_dict[0]
-   len(player_dict)
-=======
    #return player_dict[0]
     len(player_dict)
     return spells_dict, weapon_dict
->>>>>>> 9a525967fa415abe52ab401c43bfb165d526b082
 
 def end(player):
     """ outputs the ending player statistics and whether or not they made good 
