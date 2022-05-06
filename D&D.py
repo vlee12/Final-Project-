@@ -47,15 +47,25 @@ class Player:
         and pass around classes. Using regular expression to pick up player's information
 
         Args:
+<<<<<<< HEAD
             filepath (str): string of file name
         Side effects: 
             Store player's ability and health into two variables for running the game
+=======
+            filepath (str): path to a text file containing player's information
+        
+        Side effects: 
+            Store player's ability and health into two variables for running the game
+            
+        """
+>>>>>>> b9caec6f8a0a3795484c92803e303c0bb11df317
         
         """
         with open (filepath,"r",encoding="utf-8") as f:
             values = []
             expr = r ''' \d+ '''
             
+<<<<<<< HEAD
             for line in f:
                 splitted = line.split(':')[0]
                 splitted = splitted.split(' ')
@@ -82,6 +92,21 @@ class Player:
             
     def players(self):
         
+=======
+                # match function may need to update to correct one
+                self.player_health = match.player_health
+                self.player_strength = match.player_strength
+                self.player_dex_dexterity = match.player_dex_dexterity
+                self.player_intelligence = match.player_intelligence
+                self.player_wisdom = match.player_wisdom
+                self.player_charisma = match.player_charisma
+                self.player.append(name)
+            else:
+                raise ValueError("Invalid input!")
+    
+    def players(self, player):
+
+>>>>>>> b9caec6f8a0a3795484c92803e303c0bb11df317
         print("For the game, do you want to input the plyaer's information or upload a file to read?")
         choice = input("If you want to make an input, enter 1.\n"
                         "If you want to upload a file, enter 2")
@@ -183,8 +208,14 @@ class Witch(Monster):
             Give the player a description of how much damage the witch does to them
             
         """
+<<<<<<< HEAD
         player_obj -= self.witch_att_damaged
         # return player_obj
+=======
+        Player.player_health -= self.witch_att_damaged
+        
+        return self.player_health
+>>>>>>> b9caec6f8a0a3795484c92803e303c0bb11df317
     
 class Dragon(Monster):
     """Summary: Subclass of Monster, displaying dragon's information as one kind of monster 
@@ -199,7 +230,7 @@ class Dragon(Monster):
         self.dragon_att_damage = dragon_att_damage
         
     def monster_attack(self,player,current_health):
-            """Perform the dragon actions after the player’s move, how dragon gives attack after
+        """Perform the dragon actions after the player’s move, how dragon gives attack after
             players attack to dragon
 
             Args:
@@ -216,7 +247,7 @@ class Dragon(Monster):
             Raises: 
                 Give the player a description of how much damage the dragon does to them
              
-            """
+        """
         player_obj -= self.dragon_att_damaged
         return player_obj
         
@@ -230,9 +261,12 @@ def dice_roll(player_lst):
         print(f"{player} has rolled a {roll}")
     sorted_dict = sorted(player_roll.items(), key = lambda num: num[1], reverse=True)
     return sorted_dict
+<<<<<<< HEAD
 
+=======
+>>>>>>> b9caec6f8a0a3795484c92803e303c0bb11df317
 class items_or_weapons:
-	"""Summary: Players are allowed one of 4 weapons when starting the game in order to be able to do damage. 
+    """Summary: Players are allowed one of 4 weapons when starting the game in order to be able to do damage. 
     The weapons are represented below as one of 4 methods. Also includes a damage method which calls one of the
     weapons when the player is fighting and calculates the amount of damage done to a monster based on the player’s health.
     Important Comment: we wergite also considering combining all of the weapon methods into one giant method and just creating
@@ -253,7 +287,7 @@ class items_or_weapons:
     def __str__(self):
         print (f"{self.name}: damage{self.base_damage} range:{self.range}")
 class sword(items_or_weapons):
-	"""Summary: Simulates a sword in game which players can use against monsters.
+    """Summary: Simulates a sword in game which players can use against monsters.
 	Args (player obj): player which receives the sword
 	Side effects: prints out a sword-specific statement when the player uses it. 
 	Returns(int): the amount of damage which this weapon is able to do."""
@@ -263,7 +297,7 @@ class sword(items_or_weapons):
             self.base_damage += 10
         self.name = "sword"
 class bow(items_or_weapons):
-	"""Summary: Simulates archery equipment in game which players can use against monsters.
+    """Summary: Simulates archery equipment in game which players can use against monsters.
 	Args (player obj): player which receives the bow
 	Side effects: prints out an archery-specific statement when the player uses it. 
     Returns(int): the amount of damage which this weapon is able to do."""
@@ -274,7 +308,7 @@ class bow(items_or_weapons):
             self.range = 20
         self.name = "bow"
 class dagger(items_or_weapons):
-	"""Summary: Simulates a dagger in game which players can use against monsters. 
+    """Summary: Simulates a dagger in game which players can use against monsters. 
 	Args (player obj): player which receives the dagger
 	Side effects: prints out a dagger-specific statement when the player uses it. 
 	Returns(int): the amount of damage which this weapon is able to do."""
@@ -284,7 +318,7 @@ class dagger(items_or_weapons):
             self.base_damage += 10
         self.name = "dagger"
 class staff(items_or_weapons): 
-	"""Summary: Simulates a staff in game
+    """Summary: Simulates a staff in game
 	Args (player obj): player which receives the staff
 	Side effects: prints out a staff-specific statement when the player uses it. 
 	Returns(int): the amount of damage which this weapon is able to do."""
@@ -294,7 +328,7 @@ class staff(items_or_weapons):
             self.base_damage += 5
         self.name = "staff"
 class spells_and_curses:
-	"""Summary: Simulates different types of spells/curses that the player can use. There are a variety of spells which could be used.  
+    """Summary: Simulates different types of spells/curses that the player can use. There are a variety of spells which could be used.  
 	Attributes: 
         spell_stats(int): baseline spell statistics which are applicable for every spell listed. """
     def __init__(self, name = None, spell_stats = 20):
@@ -319,11 +353,11 @@ class potion(spells_and_curses):
         super().__init__()
         self.name = "potion"
 class healing_spell(spells_and_curses): 
-        """Summary: A healing spell which allows you to heal one of your teammates.
-        Args(Player, target_player):	
-	        Player(player object): player that owns the spell
-	        target_player(player_object): player which is going to get healed. 
-            Returns(int): the amount that you would heal another player"""
+    """Summary: A healing spell which allows you to heal one of your teammates.
+    Args(Player, target_player):	
+	    Player(player object): player that owns the spell
+	    target_player(player_object): player which is going to get healed. 
+        Returns(int): the amount that you would heal another player"""
     def __init__(self):
         super().__init__(self)  
         self.name = "Healing spell"
@@ -331,10 +365,10 @@ class healing_spell(spells_and_curses):
         player.health = self.spell_stats + player.health
         return player.health
 class poison_spell(spells_and_curses):
-        """Summary: A spell which is supposed to simulate poison. 
-        Args(Player): 
-        player(player obj) -The player that owns the spell.
-        Returns(int): The amount of damage done. Calculated by adding the player statistics plus base damage of spell."""
+    """Summary: A spell which is supposed to simulate poison. 
+    Args(Player): 
+    player(player obj) -The player that owns the spell.
+    Returns(int): The amount of damage done. Calculated by adding the player statistics plus base damage of spell."""
     def __init__(self):
         super().__init__() 
         self.name = "posion spell"
@@ -348,10 +382,10 @@ class poison_spell(spells_and_curses):
             print (f"{monster.monster_health}")   
         return monster.monster_health
 class fire_spell(spells_and_curses):
-        """Summary: Fire spell, allows you to deal fire magical damage to enemies.
-        Args(Player): 
-            player- the player who owns the spell. 
-        Returns(int): The amount of damage done. Calculated by adding player statistics plus base damage."""
+    """Summary: Fire spell, allows you to deal fire magical damage to enemies.
+    Args(Player): 
+        player- the player who owns the spell. 
+    Returns(int): The amount of damage done. Calculated by adding player statistics plus base damage."""
     def __init__(self):
         super().__init__() 
         self.name = "fire spell"
@@ -614,6 +648,9 @@ def end(player):
     Returns:
      the ending player statistics
    """
+    player_lst = 'Dungeon Master'
+    game = 'Dungeons and Dragons!'
+    print(f"Thank you,{player_lst} for playing and exploring {game}")
 def main(filepath):
     """Open and read the file.
     
