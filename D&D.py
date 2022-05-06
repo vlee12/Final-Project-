@@ -58,7 +58,7 @@ class Player:
         """
         with open (filepath,"r",encoding="utf-8") as f:
             values = []
-            expr = r ''' \d+ '''
+            expr = r """\d+"""
             
             for line in f:
                 splitted = line.split(':')[0]
@@ -95,7 +95,7 @@ def players():
         list: a list that contains numbers of players' name
     """
     
-    players = []
+    player_lst = []
     print("Enter the numbers of players for your game. Players should between 1-4.")
     number_of_players = input("Enter numbers 1 to 4:")
         number_of_players = int(number_of_players)
@@ -104,15 +104,15 @@ def players():
             number_of_players = input("Error, please enter 1-4 to indicates numbers of players.\n")
         for player in range(number_of_players):
             name = input(f"Please enter your player_{player+1}'s name:\n")
-            players.append(Player(self,player=None, player_health = 10, player_strength = 25,
+            player_lst.append(Player(self,player=None, player_health = 10, player_strength = 25,
                                   player_dex_dexterity = 8, player_constituiton =10, player_intelligence = 16, 
                                   player_wisdom = 10, player_charisma = 10))
     
    
 
-    # print("For the game, do you want to input the plyaer's information or upload a file to read?")
-    # choice = input("If you want to make an input, enter 1.\n"
-    #                 "If you want to upload a file, enter 2")
+    print("For the game, do you want to input the plyaer's information or upload a file to read?")
+    choice = input("If you want to make an input, enter 1.\n",
+                    "If you want to upload a file, enter 2")
 
     
     # if choice == "1":
@@ -138,7 +138,7 @@ def players():
     else: 
         raise ValueError("You are not entering numbers.")
         
-    return players
+    return player_lst
             
      
             
