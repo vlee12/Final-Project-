@@ -230,7 +230,7 @@ class Dragon(Monster):
         Monster (str): a type of monster that can attack to players when players choose path in D&D game
         and need to have a battle with the dragon
     """
-    def __init__(self,drgaon_health = 140,dragon_att_damage = 20):
+    def __init__(self,dragon_health = 140,dragon_att_damage = 20):
         self.drgaon_health = drgaon_health
         self.dragon_att_damage = dragon_att_damage
         
