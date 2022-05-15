@@ -306,7 +306,20 @@ def damage(player_lst, monster):
         print (f"{count[0].player_health} has died. Rest in peace")
     player_count += 1
 class Plot:
+    """Keep track of the player’s choice and location of the player on the plot."""
     def choices(filepath):
+        """Asks the player with the highest dice roll value which path they want to choose and the actions that result from it according to their location.
+
+        Args:
+            filepath (str): path to the text file containing the player attribute values
+
+        Raises:
+            ValueError: Invalid input from the user
+            
+        Side effect:
+            print messages based on the player's decision and location.
+            
+        """
         player_lst = start(filepath)        
         highest_roll = dice_roll(player_lst)
         first_location = None
@@ -421,10 +434,10 @@ def main(filepath):
     """Open and read the file.
     
     Args:
-    filepath(file): filepath to the text file which includes the player's character of choice.
+    filepath(str): path to the text file which includes the player's character of choice.
     
     Side effect:
-    reads the text file """
+    Opens and reads the text file """
 
     Plot.choices(filepath)
     end()
