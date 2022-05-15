@@ -3,36 +3,8 @@ import sys
 import re
 import random
 import time
-
 class Player():
-    """Showing the player’s information, the player's name, the player’s weapon and their uniquely spells for running the game. 
-    Using regex to look up player's strgenth, dexterity, intelligence, wisdom, charisma,and constitution while player's health is 
-    default value
-    
-    Attributes:
-        plyaer_health (int) : default amount of player's health amount
-        player_strength (int) : player's strength
-        player_intelligence (int) : player's intelligence
-        player_wisdom (int) : player's wisdom
-        player_charisma (int) : player's charisma 
-        player_constitution (int) : player's constituation 
-        
-    """
     def __init__(self, player_name, weapon, spell, filepath):
-        """Setting up attributes for the Player() and using filehandle to open the upload file. Also include useing regex to look up player's 
-        character statistics in strgenth, dexterity, intelligence, wisdom, charisma,and constitution.
-    
-
-        Args:
-            player_name (str): the name of the player
-            weapon (str): player can pick a weapon to attack monster, weapon can be bow, dagger, sword, or staff
-            spell (str): player's sepll that can heal team members, or cause damage by using postion spell or fire spell when a group of players ecounter monster
-            filepath (str): a string of filepath for opening file and store player's statistics to variables
-            
-        Side effects: 
-            Open the filepath and store player's strgenth, dexterity, intelligence, wisdom, charisma, constitution, spell, weapon as variables that can
-        passing around classes for use
-        """
         self.player_name = player_name
         self.player_health = 150
         expr = r'''\d+'''
@@ -49,97 +21,30 @@ class Player():
         
 
 class Monster:
-    """Including monster's information of each type of monster's health and attack damage. 
-    
-    Attributes:
-        monster_health (int) : the default value of monster's health
-        monster_att_damage (int) : the default value of monster's attack damage
-        
-    """
     def __init__(self,monster_health = 150, monster_att_damage = 15):
-        """Set up Monster's default value of health and attack damage 
-
-        Args:
-            monster_health (int, optional): Monster's health. Defaults to 150.
-            monster_att_damage (int, optional): Monster's attack damage. Defaults to 15.
-        """
         self.monster_health = monster_health
         self.monster_att_damage = monster_att_damage
     def monster_attack(self, player):
-        """A calculation that calculate player's current health amount after monster take the damage to the player
-
-        Args:
-            player: the current player who aginst to the monster
-        
-        Side effects:
-            Return current player's health amount and display death status if the player's health is euqal or less than 0, and display
-            player's death 
-        """
-        
         player.player_health -= self.monster_att_damage
         print(f"{player.player_health}")
         if player.player_health <= 0:
             print(f"{player} died.")  
 class Witch(Monster):
-    """Subclass of Monster()
-
-    Attributes: 
-        monster_health (int) : the default value of monster's health
-        monster_att_damage (int) : the default value of monster's attack damage
-    
-    """
     def __init__(self, monster_health = 130, monster_att_damage = 17):
-        """Set up witch's attributes in its health and attack damage
-
-        Args:
-            monster_health (int, optional): Witch's health. Defaults to 130.
-            monster_att_damage (int, optional): Wtich's attack damage. Defaults to 17.
-        """
         self.monster_name = "Witch"
         self.monster_health = monster_health
         self.monster_att_damage = monster_att_damage
     def monster_attack(self, player):
-        """A calculation that calculate current player's health after taking damage from Witch
-
-        Args:
-            player (str): the current player's name who agsinst to the Witch
-            
-        Side effects:
-            Return player's current health after witch take damage action to player and if the player's health is 0 or negative, 
-        display player died
-        
-        """
         player.player_health -= self.monster_att_damage
         print(f"Player health is now {player.player_health}.")
         if player.player_health <= 0:
             print(f"{player} died.")  
 class Dragon(Monster):
-    """Subclass of Monster()
-
-    Attributes: 
-        monster_health (int) : the default value of monster's health
-        monster_att_damage (int) : the default value of monster's attack damage
-    """
     def __init__(self, monster_health = 140, monster_att_damage = 20):
-        """Set up dragon's attributes in its health and attack damage
-
-        Args:
-            monster_health (int, optional): Dragon's amount of health. Defaults to 140.
-            monster_att_damage (int, optional): Dragon's attack damage. Defaults to 20.
-        """
         self.monster_name = "Dragon"
         self.monster_health = monster_health
         self.monster_att_damage = monster_att_damage
     def monster_attack(self, player):
-        """A calculation that calculate current player's health after taking damage from Dragon
-
-        Args:
-            player (str): the current player's name who agsinst to the Dragon
-        
-        Side effects: 
-            Return player's current health after witch take damage action to player, and if the player's health is 0 or negative, 
-        display player died
-        """
         player.player_health -= self.monster_att_damage
         print(f"Player health is now {player.player_health}.")
         if player.player_health <= 0:
