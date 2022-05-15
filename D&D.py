@@ -38,12 +38,12 @@ class Player():
         expr = r'''\d+'''
         with open(filepath, 'r', encoding="utf-8") as f:
             line = f.readlines()
-            self.player_strength = re.search(line[0], expr)
-            self.player_dexterity = re.search(line[1], expr)
-            self.player_intelligence = re.search(line[2], expr)
-            self.player_wisdom = re.search(line[3], expr)
-            self.player_charisma = re.search(line[4], expr)
-            self.player_constitution = re.search(line[5], expr)
+            self.player_strength = int(re.search(expr, line[0]).group(0))
+            self.player_dexterity = int(re.search(expr, line[1]).group(0))
+            self.player_intelligence = int(re.search(expr, line[2]).group(0))
+            self.player_wisdom = int(re.search(expr, line[3]).group(0))
+            self.player_charisma = int(re.search(expr, line[4]).group(0))
+            self.player_constitution = int(re.search(expr, line[5]).group(0))
         self.weapon= weapon
         self.spell= spell
         
