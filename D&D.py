@@ -5,17 +5,21 @@ import random
 import time
 
 class Player():
-    """Showing the player’s information, the player's name, the player’s weapon and their uniquely spells for running the game. 
+    """The player’s information, includes the player's name, the player’s weapon and their uniquely spells for running the game. 
     Using regex to look up player's strgenth, dexterity, intelligence, wisdom, charisma,and constitution while player's health is 
     default value
     
     Attributes:
-        plyaer_health (int) : default amount of player's health amount
+        player_name (str): the player's name
+        weapon (str) :the weapon the player will need to use in the game, can be bow, dagger, sword, or staff
+        player_health (int) : default amount of player's health amount
         player_strength (int) : player's strength
         player_intelligence (int) : player's intelligence
         player_wisdom (int) : player's wisdom
         player_charisma (int) : player's charisma 
         player_constitution (int) : player's constituation 
+        spell (str): player's sepll that can heal team members, or cause damage by using postion spell or fire spell when a group of players ecounter monster
+        filepath (str): a string of filepath for opening file and store player's statistics to variables
         
     """
     def __init__(self, player_name, weapon, spell, filepath):
