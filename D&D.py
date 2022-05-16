@@ -226,6 +226,18 @@ class fire_spell(spells_and_curses):
         super().__init__()
         self.name = "fire spell"
 def start(filepath):
+    """ Begins the game Dungeons and Dragons. Allows player to choose weapon and spell that they desire
+
+    Args:
+        filepath (string): 
+        This is the string of a filepath which is used to open the file and 
+        store the player's statistics to variables
+
+    Returns:
+        player_return: 
+        This returns the information that the player accquired. 
+        Such as their weapon choice and the specific spell that they choose. 
+    """
     num = int(input("Welcome to D&D, how many players do you want in your party"))
     player_lst= [None] * num
     player_return = []
