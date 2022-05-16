@@ -300,7 +300,7 @@ class poison_spell(spells_and_curses):
     def wait_damage(self, monster):
         """The damage of the posion class. Prints out a damage message and subtracts from the monster's health every 5 second
         Side effects:   
-            prints out a message about the spell samage
+            prints out a message about the spell damage
         Returns:
             monter.monster_health(int): an attribute of the monster class which represents it's health."""
         print ("This spell does damager over time")
@@ -328,6 +328,9 @@ def start(filepath):
         This is the string of a filepath which is used to open the file and 
         store the player's statistics to variables
 
+    Side effect:
+        prints out a message asking how many players and what weapons and spells they want.
+    
     Returns:
         player_return: 
         This returns the information that the player accquired. 
@@ -543,7 +546,7 @@ def end():
    """
     player_lst = 'Dungeon Master'
     game = 'Dungeons and Dragons!'
-    print(f"Thank you,{player_lst} for playing and exploring {game}")
+    print(f"Thank you, {player_lst} for playing and exploring {game}")
     
 def main(filepath):
     """Open and read the file.
@@ -552,7 +555,7 @@ def main(filepath):
     filepath(str): path to the text file which includes the player's character of choice.
     
     Side effect:
-    Opens and reads the text file """
+    Opens and reads the text file. Ask the question if they want to play again. """
 
     Plot.choices(filepath)
     end()
