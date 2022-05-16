@@ -22,7 +22,6 @@ class Player():
         """Setting up attributes for the Player() and using filehandle to open the upload file. Also include useing regex to look up player's 
         character statistics in strgenth, dexterity, intelligence, wisdom, charisma,and constitution.
     
-
         Args:
             player_name (str): the name of the player
             weapon (str): player can pick a weapon to attack monster, weapon can be bow, dagger, sword, or staff
@@ -38,12 +37,12 @@ class Player():
         expr = r'''\d+'''
         with open(filepath, 'r', encoding="utf-8") as f:
             line = f.readlines()
-            self.player_strength = re.search(line[0], expr)
-            self.player_dexterity = re.search(line[1], expr)
-            self.player_intelligence = re.search(line[2], expr)
-            self.player_wisdom = re.search(line[3], expr)
-            self.player_charisma = re.search(line[4], expr)
-            self.player_constitution = re.search(line[5], expr)
+            self.player_strength = int(re.search(expr, line[0]).group(0))
+            self.player_dexterity = int(re.search(expr, line[1]).group(0))
+            self.player_intelligence = int(re.search(expr, line[2]).group(0))
+            self.player_wisdom = int(re.search(expr, line[3]).group(0))
+            self.player_charisma = int(re.search(expr, line[4]).group(0))
+            self.player_constitution = int(re.search(expr, line[5]).group(0))
         self.weapon= weapon
         self.spell= spell
         
@@ -58,7 +57,6 @@ class Monster:
     """
     def __init__(self,monster_health = 150, monster_att_damage = 15):
         """Set up Monster's default value of health and attack damage 
-
         Args:
             monster_health (int, optional): Monster's health. Defaults to 150.
             monster_att_damage (int, optional): Monster's attack damage. Defaults to 15.
@@ -67,7 +65,6 @@ class Monster:
         self.monster_att_damage = monster_att_damage
     def monster_attack(self, player):
         """A calculation that calculate player's current health amount after monster take the damage to the player
-
         Args:
             player: the current player who aginst to the monster
         
@@ -82,7 +79,6 @@ class Monster:
             print(f"{player} died.")  
 class Witch(Monster):
     """Subclass of Monster()
-
     Attributes: 
         monster_health (int) : the default value of monster's health
         monster_att_damage (int) : the default value of monster's attack damage
@@ -90,7 +86,6 @@ class Witch(Monster):
     """
     def __init__(self, monster_health = 130, monster_att_damage = 17):
         """Set up witch's attributes in its health and attack damage
-
         Args:
             monster_health (int, optional): Witch's health. Defaults to 130.
             monster_att_damage (int, optional): Wtich's attack damage. Defaults to 17.
@@ -100,7 +95,6 @@ class Witch(Monster):
         self.monster_att_damage = monster_att_damage
     def monster_attack(self, player):
         """A calculation that calculate current player's health after taking damage from Witch
-
         Args:
             player (str): the current player's name who agsinst to the Witch
             
@@ -115,14 +109,12 @@ class Witch(Monster):
             print(f"{player} died.")  
 class Dragon(Monster):
     """Subclass of Monster()
-
     Attributes: 
         monster_health (int) : the default value of monster's health
         monster_att_damage (int) : the default value of monster's attack damage
     """
     def __init__(self, monster_health = 140, monster_att_damage = 20):
         """Set up dragon's attributes in its health and attack damage
-
         Args:
             monster_health (int, optional): Dragon's amount of health. Defaults to 140.
             monster_att_damage (int, optional): Dragon's attack damage. Defaults to 20.
@@ -132,7 +124,6 @@ class Dragon(Monster):
         self.monster_att_damage = monster_att_damage
     def monster_attack(self, player):
         """A calculation that calculate current player's health after taking damage from Dragon
-
         Args:
             player (str): the current player's name who agsinst to the Dragon
         
@@ -145,6 +136,13 @@ class Dragon(Monster):
         if player.player_health <= 0:
             print(f"{player} died.")  
 def dice_roll(player_lst):
+    """This method assigns players a number from 1-20 and organizes the players based on the number they were given
+    Args:
+        player_lst (list): A list of player objects
+    Side Effects: 
+        prints out "player name has rolled a #"
+    Returns:
+        sorted_dict (dictionary): player objects are the index and the number is the value"""
     min = 1
     max = 20
     player_roll = {}
@@ -155,64 +153,152 @@ def dice_roll(player_lst):
     sorted_dict = sorted(player_roll.items(), key = lambda num: num[1], reverse=True)
     return sorted_dict
 class items_or_weapons:
+    """The parent class of sword, dagger, staff, and bow. Is meant to simulate a fantasy weapon by giving it base damage and abilities
+    Attributes:
+        base_damage(int): represents the amount of damage done by the weapon
+        range (int): represents the range of the weapon
+        name (str): the name of the weapon"""
     def __init__(self, name = None, base_damage = 25, range = 10):
+        """Assigns the attributes of the items and weapons class
+        Args:
+            base_damage(int): represents the amount of damage done by the weapon
+            range (int): represents the range of the weapon
+            name (str): the name of the weapon"""
         self.base_damage = base_damage
         self.range = range
         self.name = name
     def equip(self):
+        """Prints out a statment that equips the weapon
+        Side Effects:
+            Prints out a statement which names the player and their weapon"""
         print (f"{self.player} has recieved a {self.name}")
     def ability(self):
+        """Prints out a statment that represents the ability of the weapon
+        Side Effects:
+            Prints out a statement which names the player and their weapon"""
         print(f"This {self.name} is able to do {self.base_damage}. It has a range of {range}")
     def item_damage(self, monster):
+        """Calculates the amount of damage an item is able to do to a monster
+        Args:   
+            monster (monster obj): Either a witch or a dragon class instantiation
+        Returns:
+            monster_health (int): a numerical representation of the monster's health"""
         monster.monster_health = monster.monster_health - self.base_damage
         return monster.monster_health
     def __str__(self):
+        """An init method which prints out a statement representation of the item/weapon
+        Side effects:
+            Prints out a str representation of the item/weapon"""
         print (f"{self.name}: damage{self.base_damage} range:{self.range}")
 class sword(items_or_weapons):
-    def __init__(self):    
+    """A child class of items_or_weapons A simulation of a sword.
+    Args:
+        items_or_weapons(class): the parent class of sword."""
+    def __init__(self):
+        """Assigns the attributes of the sword class. Calls the init method of the items_or_weapons class.
+        """    
         super().__init__()
         self.name = "sword"
 class bow(items_or_weapons):
-    def __init__(self):    
+    """A child class of items_or_weapons A simulation of a bow.
+    Args:
+        items_or_weapons(class): the parent class of bow."""
+    def __init__(self): 
+        """Assigns the attributes of the bow class. Calls the init method of the items_or_weapons class.
+        """       
         super().__init__()
         self.name = "bow"
 class dagger(items_or_weapons):
+    """A child class of items_or_weapons A simulation of a dagger.
+    Args:
+        items_or_weapons(class): the parent class of dagger."""
     def __init__(self):
+        """Assigns the attributes of the dagger class. Calls the init method of the items_or_weapons class.
+        """    
         super().__init__()
         self.name = "dagger"
 class staff(items_or_weapons):
+    """A child class of items_or_weapons A simulation of a staff
+    Args:
+        items_or_weapons(class): the parent class of staff"""
     def __init__(self):
+        """Assigns the attributes of the staff class. Calls the init method of the items_or_weapons class.
+        """    
         super().__init__()
         self.name = "staff"
 class spells_and_curses:
+    """The parent class of potion, healing_spell, posion_spell, fire_spell. Is meant to simulate a fantasy spell by giving it base damage and abilities
+    Attributes:
+        spell_stats(int): represents the amount of damage done by the spell
+        name (str): the name of the spell"""
     def __init__(self, name = None, spell_stats = 20):
+        """Assigns the attributes to the spells_and_curses class
+            Attributes:
+                spell_stats(int): amount of damage a spell can do 
+                name(str): represents the name of a string"""
         self.spell_stats = spell_stats
         self.name = name
     def spell_message(self, player):
+        """Prints out the name of the player and their spell name
+        Args:
+            player(player obj): A player which recieves the spell object
+        Side effects:
+            prints out a statement about the player being able to use a spell"""
         print (f"{player} is able to use this {self.name}")
     def spell_use(self):
+        """Prints out the name of the player and their spell name
+        Side effects:
+            prints out a statement about the player and their spell damage"""
         print (f"{self.name} has the ability to do {self.spell_stats} damage")
-    def spell_message(self):
-        print (f"{self.name} has the ability to do {self.spell_stats} amount of damage")
     def spell_damage(self, monster):
+        """Calcuates the amount of monster health left after a player uses one of their spells
+        Returns:
+            monster.monster_health(int): an attribute of the monster which represents its health"""
         monster.monster_health = monster.monster_health - self.spell_stats
         return monster.monster_health
 class potion(spells_and_curses):
+    """The child class of spells_and_curses. Is meant to simulate a potion
+        Attributes:
+            spell_stats(int): represents the amount of damage done by the spell
+            name (str): the name of the spell"""
     def __init__(self):
+        """Assigns the attributes of the potion class. Calls the init method of the spells_and_curses class.
+        """    
         super().__init__()
         self.name = "potion"
 class healing_spell(spells_and_curses):
+    """The child class of spells_and_curses. Is meant to simulate a potion
+        Attributes:
+            spell_stats(int): represents the amount of damage done by the spell
+            name (str): the name of the spell"""
     def __init__(self):
+        """Assigns the attributes of the potion class. Calls the init method of the spells_and_curses class.
+        """ 
         super().__init__(self)  
         self.name = "Healing spell"
     def heal(self, player):
+        """Increases a player's health based on the integer value of spell_stats
+        Args:
+            player(player_obj): the player which will get healed
+        Returns:
+            player.health (int): an attribute of player which represents their health"""
         player.health = self.spell_stats + player.health
         return player.health
 class poison_spell(spells_and_curses):
+    """The child class of spells_and_curses. Is meant to simulate a potion
+        Attributes:
+            spell_stats(int): represents the amount of damage done by the spell
+            name (str): the name of the spell"""
     def __init__(self):
+        """Assigns the attributes of the potion class. Calls the init method of the spells_and_curses class."""    
         super().__init__()
         self.name = "posion spell"
     def wait_damage(self, monster):
+        """The damage of the posion class. Prints out a damage message and subtracts from the monster's health every 5 second
+        Side effects:   
+            prints out a message about the spell samage
+        Returns:
+            monter.monster_health(int): an attribute of the monster class which represents it's health."""
         print ("This spell does damager over time")
         conditional = self.spell_stats
         while conditional > 0:
@@ -222,7 +308,12 @@ class poison_spell(spells_and_curses):
             print (f"{monster.monster_health}")  
         return monster.monster_health
 class fire_spell(spells_and_curses):
+    """The child class of spells_and_curses. Is meant to simulate a potion
+        Attributes:
+            spell_stats(int): represents the amount of damage done by the spell
+            name (str): the name of the spell"""
     def __init__(self):
+        """Assigns the attributes of the potion class. Calls the init method of the spells_and_curses class."""
         super().__init__()
         self.name = "fire spell"
 def start(filepath):
@@ -289,6 +380,14 @@ def start(filepath):
     return player_return
     
 def damage(player_lst, monster):
+    """Simulates a fight scene between a player and a monster
+    Args:
+        player_lst(lst): A list of player objects
+        monster(monster_obj): An object which is supposed to represent a fantasy creature that the player
+        fights agains
+    Side effects:
+        Prints out player prompts, asking th player if they would want to attack and with what type of damage
+        they would like to attack with. Also prints out which player is attacking."""
     print (f"You have approached this monster, please make a role to see who will attack first")
     damage_dict = dice_roll(player_lst)
     player_count = 0
@@ -318,7 +417,20 @@ def damage(player_lst, monster):
         print (f"{count[0].player_health} has died. Rest in peace")
     player_count += 1
 class Plot:
+    """Keep track of the player’s choice and location of the player on the plot."""
     def choices(filepath):
+        """Asks the player with the highest dice roll value which path they want to choose and the actions that result from it according to their location.
+
+        Args:
+            filepath (str): path to the text file containing the player attribute values
+
+        Raises:
+            ValueError: Invalid input from the user
+            
+        Side effect:
+            print messages based on the player's decision and location.
+            
+        """
         player_lst = start(filepath)        
         highest_roll = dice_roll(player_lst)
         first_location = None
@@ -433,10 +545,10 @@ def main(filepath):
     """Open and read the file.
     
     Args:
-    filepath(file): filepath to the text file which includes the player's character of choice.
+    filepath(str): path to the text file which includes the player's character of choice.
     
     Side effect:
-    reads the text file """
+    Opens and reads the text file """
 
     Plot.choices(filepath)
     end()
