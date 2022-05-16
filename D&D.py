@@ -538,11 +538,9 @@ class Plot:
 def end():
     """ outputs the ending player statistics and whether or not they made good 
         decisions throughout the game
-    Args:
-    player(str): amount of players being chosen/dice roll
-    
-    Returns:
-     the ending player statistics
+
+    Side effect:
+    prints thank you message
    """
     player_lst = 'Dungeon Master'
     game = 'Dungeons and Dragons!'
