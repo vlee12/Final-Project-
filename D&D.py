@@ -519,8 +519,8 @@ class Plot:
                 third_location = 'curse'
                 print('You will get cursed.')
             elif third_decision == 'run':
-                third_location = 'get magic'
-                print('Your final action will be getting a reward.')
+                third_location = 'starvation'
+                print('Sorry, there is nowhere to go anymore.')
             else:
                 raise ValueError('Invalid input')
         elif second_location == 'lost':
