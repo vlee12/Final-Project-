@@ -41,12 +41,12 @@ class Player():
         expr = r'''\d+'''
         with open(filepath, 'r', encoding="utf-8") as f:
             line = f.readlines()
-            self.player_strength = re.search(line[0], expr)
-            self.player_dexterity = re.search(line[1], expr)
-            self.player_intelligence = re.search(line[2], expr)
-            self.player_wisdom = re.search(line[3], expr)
-            self.player_charisma = re.search(line[4], expr)
-            self.player_constitution = re.search(line[5], expr)
+            self.player_strength = int(re.search(expr, line[0]).group(0))
+            self.player_dexterity = int(re.search(expr, line[1]).group(0))
+            self.player_intelligence = int(re.search(expr, line[2]).group(0))
+            self.player_wisdom = int(re.search(expr, line[3]).group(0))
+            self.player_charisma = int(re.search(expr, line[4]).group(0))
+            self.player_constitution = int(re.search(expr, line[5]).group(0))
         self.weapon= weapon
         self.spell= spell
         
@@ -80,7 +80,7 @@ class Monster:
         player.player_health -= self.monster_att_damage
         print(f"{player.player_health}")
         if player.player_health <= 0:
-            print(f"{player} died.")  
+            print(f"{player.player_name} died.")  
 class Witch(Monster):
     """Subclass of Monster()
     Attributes: 
@@ -110,7 +110,7 @@ class Witch(Monster):
         player.player_health -= self.monster_att_damage
         print(f"Player health is now {player.player_health}.")
         if player.player_health <= 0:
-            print(f"{player} died.")  
+            print(f"{player.player_name} died.")  
 class Dragon(Monster):
     """Subclass of Monster()
     Attributes: 
@@ -138,7 +138,7 @@ class Dragon(Monster):
         player.player_health -= self.monster_att_damage
         print(f"Player health is now {player.player_health}.")
         if player.player_health <= 0:
-            print(f"{player} died.")  
+            print(f"{player.player_name} died.")  
 def dice_roll(player_lst):
     """This method assigns players a number from 1-20 and organizes the players based on the number they were given
     Args:
@@ -321,6 +321,18 @@ class fire_spell(spells_and_curses):
         super().__init__()
         self.name = "fire spell"
 def start(filepath):
+    """ Begins the game Dungeons and Dragons. Allows player to choose weapon and spell that they desire
+
+    Args:
+        filepath (string): 
+        This is the string of a filepath which is used to open the file and 
+        store the player's statistics to variables
+
+    Returns:
+        player_return: 
+        This returns the information that the player accquired. 
+        Such as their weapon choice and the specific spell that they choose. 
+    """
     num = int(input("Welcome to D&D, how many players do you want in your party"))
     player_lst= [None] * num
     player_return = []
@@ -384,7 +396,7 @@ def damage(player_lst, monster):
     damage_dict = dice_roll(player_lst)
     player_count = 0
     count = damage_dict[0]
-    while monster.monster_health > 0 and count[0].player_health:
+    while monster.monster_health > 0 and count[0].player_health > 0:
         question=input(f"{count[0].player_name}, would you like to attack? (y/n)")
         if question == "y":
             question2 = input("Would you like to use your weapon or magic?")
@@ -405,8 +417,8 @@ def damage(player_lst, monster):
             player_count += 1
     if monster.monster_health == 0:
         print ("Success! you have killed the monster")
-    if count[0].player_health == 0:
-        print (f"{count[0].player_health} has died. Rest in peace")
+    if count[0].player_health <= 0:
+        print (f"{count[0].player_name} has died. Rest in peace")
     player_count += 1
 class Plot:
     """Keep track of the player’s choice and location of the player on the plot."""
@@ -511,8 +523,8 @@ class Plot:
                 third_location = 'curse'
                 print('You will get cursed.')
             elif third_decision == 'run':
-                third_location = 'get magic'
-                print('Your final action will be getting a reward.')
+                third_location = 'starvation'
+                print('Sorry, there is nowhere to go anymore.')
             else:
                 raise ValueError('Invalid input')
         elif second_location == 'lost':
@@ -544,6 +556,11 @@ def main(filepath):
 
     Plot.choices(filepath)
     end()
+    question = input("Would you like to play again? yes/no")
+    while question == 'yes':
+        Plot.choices(filepath)
+        end()
+        question = input("Would you like to play again? yes/no")
     
 def parse_args(arglist):
     """Process command line arguments.
