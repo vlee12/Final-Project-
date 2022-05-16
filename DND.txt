@@ -1,0 +1,6 @@
+Player strength:20
+Player dexterity:10
+Player intelligence:17
+Player wisdom:10
+Player charisma:10
+Player constitution:10
