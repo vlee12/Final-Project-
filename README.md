@@ -2,7 +2,8 @@
 A repository of the final project for INST326.
 
 Project:D&D Game 
-The only file that is needed to run the program is the D&D.py where it contains all the code to the Dungeons and Dragons game. 
+The files that are needed to run the program are the D&D.py where it contains all the code to the Dungeons and Dragons game and the DND.txt where it contains the player attribute values.
+
 
 How to run the program: 
 From the command line, type “python D&D.py” and the filepath containing custom player attributes like player_strength, player_dexterity, etc to run the program. If the file name of the text file is “DND.txt” then the user would type “python D&D.py DND.txt” in the command line to run the program.
