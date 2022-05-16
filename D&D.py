@@ -76,7 +76,7 @@ class Monster:
         player.player_health -= self.monster_att_damage
         print(f"{player.player_health}")
         if player.player_health <= 0:
-            print(f"{player} died.")  
+            print(f"{player.player_name} died.")  
 class Witch(Monster):
     """Subclass of Monster()
     Attributes: 
@@ -106,7 +106,7 @@ class Witch(Monster):
         player.player_health -= self.monster_att_damage
         print(f"Player health is now {player.player_health}.")
         if player.player_health <= 0:
-            print(f"{player} died.")  
+            print(f"{player.player_name} died.")  
 class Dragon(Monster):
     """Subclass of Monster()
     Attributes: 
@@ -134,7 +134,7 @@ class Dragon(Monster):
         player.player_health -= self.monster_att_damage
         print(f"Player health is now {player.player_health}.")
         if player.player_health <= 0:
-            print(f"{player} died.")  
+            print(f"{player.player_name} died.")  
 def dice_roll(player_lst):
     """This method assigns players a number from 1-20 and organizes the players based on the number they were given
     Args:
@@ -392,7 +392,7 @@ def damage(player_lst, monster):
     damage_dict = dice_roll(player_lst)
     player_count = 0
     count = damage_dict[0]
-    while monster.monster_health > 0 and count[0].player_health:
+    while monster.monster_health > 0 and count[0].player_health > 0:
         question=input(f"{count[0].player_name}, would you like to attack? (y/n)")
         if question == "y":
             question2 = input("Would you like to use your weapon or magic?")
@@ -413,8 +413,8 @@ def damage(player_lst, monster):
             player_count += 1
     if monster.monster_health == 0:
         print ("Success! you have killed the monster")
-    if count[0].player_health == 0:
-        print (f"{count[0].player_health} has died. Rest in peace")
+    if count[0].player_health <= 0:
+        print (f"{count[0].player_name} has died. Rest in peace")
     player_count += 1
 class Plot:
     """Keep track of the player’s choice and location of the player on the plot."""
@@ -552,6 +552,11 @@ def main(filepath):
 
     Plot.choices(filepath)
     end()
+    question = input("Would you like to play again? yes/no")
+    while question == 'yes':
+        Plot.choices(filepath)
+        end()
+        question = input("Would you like to play again? yes/no")
     
 def parse_args(arglist):
     """Process command line arguments.
